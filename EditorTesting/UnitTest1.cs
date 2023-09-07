@@ -9,6 +9,8 @@ namespace EditorTesting
         [TestMethod]
         public void TestMethod1()
         {
+            const int E = 16;
+            int i = E + 6;
 
         }
     }
