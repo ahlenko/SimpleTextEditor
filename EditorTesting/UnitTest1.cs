@@ -1,25 +1,22 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SimpleTextEditor;
 using System;
 
-namespace EditorTesting
-{
+namespace EditorTesting {
     [TestClass]
-    public class RenameMethodTest
-    {
+    public class RenameMethodTest {
         [TestMethod]
-        public void TestMethod1()
-        {
-            
+        public void TestMethod1() {
+            refactor ref = new refactor();
+
 
         }
     }
 
     [TestClass]
-    public class InlineMethodTest
-    {
+    public class InlineMethodTest {
         [TestMethod]
-        public void TestMethod1()
-        {
+        public void TestMethod1() {
             
 
         }

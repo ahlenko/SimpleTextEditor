@@ -20,7 +20,7 @@ namespace SimpleTextEditor {
             return "";
         }
 
-        public string InsertMethod(string text, string name) {
+        public string InlineMethod(string text, string name) {
             return "";
         }
     }
