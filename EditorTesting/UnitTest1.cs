@@ -397,15 +397,47 @@ namespace EditorTesting {
         {
             Refactor refactor = new Refactor();
 
-            string method_call = "";
+            string method_call = "car.displayInfo()";
 
-            string text = 
-                "";
+            string text =
+                "#include <iostream>\r\n" +
+                "class Car { // Клас Автомобіль\r\n" +
+                "public:\r\n" +
+                "    Car(std::string make, std::string model) : make(make), model(model) {}\r\n" +
+                "    void displayInfo() {\r\n" +
+                "        std::cout << \"Марка: \" << make << std::endl;\r\n" +
+                "        std::cout << \"Модель: \" << model << std::endl;}\r\n" +
+                "    std::string make;\r\n" +
+                "    std::string model;\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    Car car(\"Toyota\", \"Camry\");\r\n" +
+                "    std::cout << \"\\nІнформація про автомобіль:\" << std::endl;\r\n" +
+                "    car.displayInfo();\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
-            string returned_var = "";
+            string returned_var = "_";
 
             string res =
-                "";
+                "#include <iostream>\r\n" +
+                "class Car { // Клас Автомобіль\r\n" +
+                "public:\r\n" +
+                "    Car(std::string make, std::string model) : make(make), model(model) {}\r\n" +
+                "    void displayInfo() {\r\n" +
+                "        std::cout << \"Марка: \" << make << std::endl;\r\n" +
+                "        std::cout << \"Модель: \" << model << std::endl;}\r\n" +
+                "    std::string make;\r\n" +
+                "    std::string model;\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    Car car(\"Toyota\", \"Camry\");\r\n" +
+                "    std::cout << \"\\nІнформація про автомобіль:\" << std::endl;\r\n" +
+                "    //MInline: car.displayInfo();\r\n" +
+                "    std::cout << \"Марка: \" << car.make << std::endl;\r\n" +
+                "    std::cout << \"Модель: \" << car.model << std::endl;\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
             Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
         }
