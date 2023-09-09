@@ -1,183 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleTextEditor;
-using System;
 
 namespace EditorTesting {
-
-    [TestClass] //|-----------------------------------------------------------------------|
-    public class RenameMethodTest {
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod1()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod2()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod3()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod4()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod5()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod6()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod7()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod8()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod9()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-
-        [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod10()
-        {
-            Refactor refactor = new Refactor();
-
-            string old_name = "";
-            string new_name = "";
-
-            string text = 
-                "";
-
-            string res = 
-                "";
-
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
-        }
-    }
-
     [TestClass] //|-----------------------------------------------------------------------|
     public class InlineMethodTest {
 
@@ -221,8 +45,7 @@ namespace EditorTesting {
         }
 
         [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod2()
-        {
+        public void TestMethod2() {
             Refactor refactor = new Refactor();
 
             string method_call = "math.mult(8, 2)";
@@ -245,7 +68,7 @@ namespace EditorTesting {
                 "    cout << n;\r\n" +
                 "    return 0;\r\n" +
                 "}";
-            
+
             string returned_var = "mult_res";
 
             string res =
@@ -273,8 +96,7 @@ namespace EditorTesting {
         }
 
         [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod3()
-        {
+        public void TestMethod3() {
             Refactor refactor = new Refactor();
 
             string method_call = "math.div(3, 1)";
@@ -325,8 +147,7 @@ namespace EditorTesting {
         }
 
         [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod4()
-        {
+        public void TestMethod4() {
             Refactor refactor = new Refactor();
 
             string method_call = "user.displayInfo()";
@@ -359,8 +180,7 @@ namespace EditorTesting {
         }
 
         [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod5()
-        {
+        public void TestMethod5() {
             Refactor refactor = new Refactor();
 
             string method_call = "user(\"Іван\", 30)";
@@ -393,8 +213,7 @@ namespace EditorTesting {
         }
 
         [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod6()
-        {
+        public void TestMethod6() {
             Refactor refactor = new Refactor();
 
             string method_call = "car.displayInfo()";
@@ -443,73 +262,241 @@ namespace EditorTesting {
         }
 
         [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod7()
-        {
+        public void TestMethod7() {
             Refactor refactor = new Refactor();
 
-            string method_call = "";
+            string method_call = "c1.Subtract(p, q)";
 
-            string text = 
-                "";
+            string text =
+                "class Class1 { public:\r\n" +
+                "    int Add(int a, int b) {\r\n" +
+                "        return a + b;}\r\n" +
+                "    int Subtract(int a, int b) {\r\n" +
+                "        return a - b;}\r\n" +
+                "};\r\n" +
+                "class Class2 { public:\r\n" +
+                "    Class1 c1;\r\n" +
+                "    int Calculate(int x, int y) {\r\n" +
+                "        return x + c1.Add(x, y);}\r\n" +
+                "    int Compute(int p, int q) {\r\n" +
+                "        return p - c1.Subtract(p, q);}\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    Class2 c2;\r\n" +
+                "    int result1 = c2.Calculate(10, 5);\r\n" +
+                "    int result2 = c2.Compute(20, 8);\r\n" +
+                "    std::cout << \"Result 1: \" << result1 << std::endl;\r\n" +
+                "    std::cout << \"Result 2: \" << result2 << std::endl;\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
-            string returned_var = "";
+            string returned_var = "res";
 
             string res =
-                "";
+                "class Class1 { public:\r\n" +
+                "    int Add(int a, int b) {\r\n" +
+                "        return a + b;}\r\n" +
+                "    int Subtract(int a, int b) {\r\n" +
+                "        return a - b;}\r\n" +
+                "};\r\n" +
+                "class Class2 { public:\r\n" +
+                "    Class1 c1;\r\n" +
+                "    int Calculate(int x, int y) {\r\n" +
+                "        return x + c1.Add(x, y);}\r\n" +
+                "    int Compute(int p, int q) {\r\n" +
+                "        //MInline: c1.Subtract(p, q);\r\n" +
+                "        int res = p - q;\r\n" +
+                "        return p - res;}\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    Class2 c2;\r\n" +
+                "    int result1 = c2.Calculate(10, 5);\r\n" +
+                "    int result2 = c2.Compute(20, 8);\r\n" +
+                "    std::cout << \"Result 1: \" << result1 << std::endl;\r\n" +
+                "    std::cout << \"Result 2: \" << result2 << std::endl;\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
             Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod8()
-        {
+        public void TestMethod8() {
             Refactor refactor = new Refactor();
 
-            string method_call = "";
+            string method_call = "c2.Calculate(10, 5)";
 
-            string text = 
-                "";
+            string text =
+                "class Class1 { public:\r\n" +
+                "    int Add(int a, int b) {\r\n" +
+                "        return a + b;}\r\n" +
+                "    int Subtract(int a, int b) {\r\n" +
+                "        return a - b;}\r\n" +
+                "};\r\n" +
+                "class Class2 { public:\r\n" +
+                "    Class1 c1;\r\n" +
+                "    int Calculate(int x, int y) {\r\n" +
+                "        return x + c1.Add(x, y);}\r\n" +
+                "    int Compute(int p, int q) {\r\n" +
+                "        return p - c1.Subtract(p, q);}\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    Class2 c2;\r\n" +
+                "    int result1 = c2.Calculate(10, 5);\r\n" +
+                "    int result2 = c2.Compute(20, 8);\r\n" +
+                "    std::cout << \"Result 1: \" << result1 << std::endl;\r\n" +
+                "    std::cout << \"Result 2: \" << result2 << std::endl;\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
-            string returned_var = "";
+            string returned_var = "res";
 
             string res =
-                "";
+                "class Class1 {public:\r\n" +
+                "    int Add(int a, int b) {\r\n" +
+                "        return a + b;}\r\n" +
+                "    int Subtract(int a, int b) {\r\n" +
+                "        return a - b;}\r\n" +
+                "};\r\n" +
+                "class Class2 { public:\r\n" +
+                "    Class1 c1;\r\n" +
+                "    int Calculate(int x, int y) {\r\n" +
+                "        return x + c1.Add(x, y);}\r\n" +
+                "    int Compute(int p, int q) {\r\n" +
+                "        return p - c1.Subtract(p, q);}\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    Class2 c2;\r\n" +
+                "    //MInline: c2.Calculate(10, 5);\r\n" +
+                "    int res = 10 + c2.c1.Add(10, 5);\r\n" +
+                "    int result1 = res;\r\n" +
+                "    int result2 = c2.Compute(20, 8);\r\n" +
+                "    std::cout << \"Result 1: \" << result1 << std::endl;\r\n" +
+                "    std::cout << \"Result 2: \" << result2 << std::endl;\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
             Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod9()
-        {
+        public void TestMethod9() {
             Refactor refactor = new Refactor();
 
-            string method_call = "";
+            string method_call = "IsPrime(i)";
 
-            string text = 
-                "";
+            string text =
+                "class DataProcessor { public:\r\n" +
+                "    int ProcessData(int data) {\r\n" +
+                "        int result = 0;\r\n" +
+                "        if (data > 0) for (int i = 1; i <= data; ++i) {\r\n" +
+                "            if (IsPrime(i)) result += i;}\r\n" +
+                "        else std::cerr << \"Error: Invalid input data.\" << std::endl;\r\n" +
+                "        return result;}\r\n" +
+                "    bool IsPrime(int number) {\r\n" +
+                "        if (number <= 1) return false; \r\n" +
+                "        for (int i = 2; i * i <= number; ++i) \r\n" +
+                "            if (number % i == 0) return false;\r\n" +
+                "                return true;}\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    DataProcessor processor;\r\n" +
+                "    int inputData = 10;\r\n" +
+                "    int result = processor.ProcessData(inputData);\r\n" +
+                "    std::cout << \"Result: \" << result << std::endl;\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
-            string returned_var = "";
+            string returned_var = "boolRes";
 
             string res =
-                "";
+                "class DataProcessor { public:\r\n" +
+                "    int ProcessData(int data) {\r\n" +
+                "        int result = 0;\r\n" +
+                "        if (data > 0) for (int i = 1; i <= data; ++i) {\r\n" +
+                "            //MInline: IsPrime(i);\r\n" +
+                "            bool boolRes; {\r\n" +
+                "                if (i <= 1) boolRes = false;\r\n" +
+                "                for (int i_ = 2; i * i_ <= i; ++i_)\r\n" +
+                "                    if (i % i_ == 0) boolRes = false;\r\n" +
+                "                boolRes = true;}\r\n" +
+                "            if (boolRes) result += i;}\r\n" +
+                "        else std::cerr << \"Error: Invalid input data.\" << std::endl;\r\n" +
+                "        return result;}\r\n" +
+                "    bool IsPrime(int number) {\r\n" +
+                "        if (number <= 1) return false; \r\n" +
+                "        for (int i = 2; i * i <= number; ++i) \r\n" +
+                "            if (number % i == 0) return false;\r\n" +
+                "                return true;}\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    DataProcessor processor;\r\n" +
+                "    int inputData = 10;\r\n" +
+                "    int result = processor.ProcessData(inputData);\r\n" +
+                "    std::cout << \"Result: \" << result << std::endl;\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
             Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
-        public void TestMethod10()
-        {
+        public void TestMethod10() {
             Refactor refactor = new Refactor();
 
-            string method_call = "";
+            string method_call = "processor.ProcessData(inputData)";
 
-            string text = 
-                "";
+            string text =
+                "class DataProcessor { public:\r\n" +
+                "    int ProcessData(int data) {\r\n" +
+                "        int result = 0;\r\n" +
+                "        if (data > 0) for (int i = 1; i <= data; ++i) {\r\n" +
+                "            if (IsPrime(i)) result += i;}\r\n" +
+                "        else std::cerr << \"Error: Invalid input data.\" << std::endl;\r\n" +
+                "        return result;}\r\n" +
+                "    bool IsPrime(int number) {\r\n" +
+                "        if (number <= 1) return false; \r\n" +
+                "        for (int i = 2; i * i <= number; ++i) \r\n" +
+                "            if (number % i == 0) return false;\r\n" +
+                "                return true;}\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    DataProcessor processor;\r\n" +
+                "    int inputData = 10;\r\n" +
+                "    int result = processor.ProcessData(inputData);\r\n" +
+                "    std::cout << \"Result: \" << result << std::endl;\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
-            string returned_var = "";
+            string returned_var = "res";
 
             string res =
-                "";
+                "class DataProcessor { public:\r\n" +
+                "    int ProcessData(int data) {\r\n" +
+                "        int result = 0;\r\n" +
+                "        if (data > 0) for (int i = 1; i <= data; ++i) {\r\n" +
+                "            if (IsPrime(i)) result += i;}\r\n" +
+                "        else std::cerr << \"Error: Invalid input data.\" << std::endl;\r\n" +
+                "        return result;}\r\n" +
+                "    bool IsPrime(int number) {\r\n" +
+                "        if (number <= 1) return false; \r\n" +
+                "        for (int i = 2; i * i <= number; ++i) \r\n" +
+                "            if (number % i == 0) return false;\r\n" +
+                "                return true;}\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    DataProcessor processor;\r\n" +
+                "    int inputData = 10;\r\n" +
+                "    //MInline: processor.ProcessData(inputData);\r\n" +
+                "    int res; {int result_ = 0;\r\n" +
+                "    if (inputData > 0) for (int i = 1; i <= inputData; ++i) \r\n" +
+                "        if (processor.IsPrime(i)) result_ += i;\r\n" +
+                "    else std::cerr << \"Error: Invalid input data.\" << std::endl;\r\n" +
+                "    res = result_;}\r\n" +
+                "    int result = res;\r\n" +
+                "    std::cout << \"Result: \" << result << std::endl;\r\n" +
+                "    return 0;\r\n" +
+                "}";
 
             Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
         }
