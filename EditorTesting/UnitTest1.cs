@@ -4,13 +4,17 @@ using System;
 namespace EditorTesting
 {
     [TestClass]
-    public class UnitTest1
-    {
+    public class UnitTesting {
+
         [TestMethod]
-        public void TestMethod1()
-        {
-            const int E = 16;
-            int i = E + 6;
+        public void RenameMethodTest() {
+            
+
+        }
+
+        [TestMethod]
+        public void InlineMethodTest() {
+
 
         }
     }
