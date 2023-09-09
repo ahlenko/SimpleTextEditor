@@ -4,17 +4,23 @@ using System;
 namespace EditorTesting
 {
     [TestClass]
-    public class UnitTesting {
-
+    public class RenameMethodTest
+    {
         [TestMethod]
-        public void RenameMethodTest() {
+        public void TestMethod1()
+        {
             
 
         }
+    }
 
+    [TestClass]
+    public class InlineMethodTest
+    {
         [TestMethod]
-        public void InlineMethodTest() {
-
+        public void TestMethod1()
+        {
+            
 
         }
     }
