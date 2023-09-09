@@ -13,7 +13,7 @@ namespace SimpleTextEditor
             return "";
         }
 
-        public string InlineMethod(string text, string name)
+        public string InlineMethod(string text, string name, string returned_var)
         {
             return "";
         }
