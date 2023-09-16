@@ -52,29 +52,33 @@ namespace EditorTesting
         {
             Refactor refactor = new Refactor();
 
-            string old_name = "int";
-            string new_name = "void";
+            string old_name = "Add";
+            string new_name = "Plus";
 
             string text =
                 "#include <iostream>\r\n" +
-                "int main() {\r\n" +
-                "    int arr[] = {64, 34, 25, 12, 22, 11, 90};\r\n" +
-                "    int n = sizeof(arr) / sizeof(arr[0]);\r\n" +
-                "    for (int i = 0; i < n; i++) {\r\n" +
-                "        std::cout << arr[i] << \" \";\r\n" +
+                "class MathUtils {\r\n" +
+                "public:\r\n" +
+                "    static int Add(int a, int b) {\r\n" +
+                "        return a + b;\r\n" +
                 "    }\r\n" +
-                "    std::cout << std::endl;\r\n" +
+                "int main() {\r\n" +
+                "    int sum = MathUtils::Add(5, 3);\r\n" +
+                "    std::cout << \"5 + 3 = \" << sum << std::endl;\r\n" +
+                "    return 0;\r\n" +
                 "}";
 
             string res =
                 "#include <iostream>\r\n" +
-                "void main() {\r\n" +
-                "    void arr[] = {64, 34, 25, 12, 22, 11, 90};\r\n" +
-                "    void n = sizeof(arr) / sizeof(arr[0]);\r\n" +
-                "    for (void i = 0; i < n; i++) {\r\n" +
-                "        std::cout << arr[i] << \" \";\r\n" +
+                "class MathUtils {\r\n" +
+                "public:\r\n" +
+                "    static int Plus(int a, int b) {\r\n" +
+                "        return a + b;\r\n" +
                 "    }\r\n" +
-                "    std::cout << std::endl;\r\n" +
+                "int main() {\r\n" +
+                "    int sum = MathUtils::Plus(5, 3);\r\n" +
+                "    std::cout << \"5 + 3 = \" << sum << std::endl;\r\n" +
+                "    return 0;\r\n" +
                 "}";
 
             Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
@@ -85,12 +89,12 @@ namespace EditorTesting
         {
             Refactor refactor = new Refactor();
 
-            string old_name = "bubbleSort(arr, n)";
-            string new_name = "bubbleSort(mass, 100)";
+            string old_name = "popUpSort";
+            string new_name = "bubbleSort";
 
             string text =
                 "#include <iostream>\r\n" +
-                "    bubbleSort(arr, n);\r\n" +
+                "    popUpSort(mass, 100);\r\n" +
                 "    for (int i = 0; i < n; i++) {\r\n" +
                 "        std::cout << arr[i] << \" \";\r\n" +
                 "    }\r\n" +
@@ -99,12 +103,13 @@ namespace EditorTesting
 
             string res =
                 "#include <iostream>\r\n" +
-                "    bubbleSort(mass, 100);\r\n" +
+                "    bubbleSort(arr, n);\r\n" +
                 "    for (int i = 0; i < n; i++) {\r\n" +
                 "        std::cout << arr[i] << \" \";\r\n" +
                 "    }\r\n" +
                 "    return 0;\r\n" +
                 "}";
+
 
             Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
         }
@@ -114,34 +119,34 @@ namespace EditorTesting
         {
             Refactor refactor = new Refactor();
 
-            string old_name = "main()";
-            string new_name = "main(int argc, char* argv[])";
+            string old_name = "Square";
+            string new_name = "Rectangle";
 
             string text =
                 "#include <iostream>\r\n" +
-                "#include <fstream>\r\n" +
-                "int main() {\r\n" +
-                "    std::ofstream outputFile(\"example.txt\");\r\n" +
-                "    if (!outputFile) {\r\n" +
-                "        std::cerr << \"Could not open the file for writing\" << std::endl;\r\n" +
-                "        return 1;\r\n" +
+                "class MathUtils {\r\n" +
+                "public:\r\n" +
+                "    static double Square(double x) {\r\n" +
+                "        return x * x;\r\n" +
                 "    }\r\n" +
-                "    outputFile << \"This is an example of working with files in C++\" << std::endl;\r\n" +
-                "    outputFile.close();\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    double square = MathUtils::Square(4.0);\r\n" +
+                "    std::cout << \"Square of 4.0 is \" << square << std::endl;\r\n" +
                 "    return 0;\r\n" +
                 "}";
 
             string res =
                 "#include <iostream>\r\n" +
-                "#include <fstream>\r\n" +
-                "int main(int argc, char* argv[]) {\r\n" +
-                "    std::ofstream outputFile(\"example.txt\");\r\n" +
-                "    if (!outputFile) {\r\n" +
-                "        std::cerr << \"Could not open the file for writing\" << std::endl;\r\n" +
-                "        return 1;\r\n" +
+                "class MathUtils {\r\n" +
+                "public:\r\n" +
+                "    static double Rectangle(double x) {\r\n" +
+                "        return x * x;\r\n" +
                 "    }\r\n" +
-                "    outputFile << \"This is an example of working with files in C++\" << std::endl;\r\n" +
-                "    outputFile.close();\r\n" +
+                "};\r\n" +
+                "int main() {\r\n" +
+                "    double square = MathUtils::Rectangle(4.0);\r\n" +
+                "    std::cout << \"Square of 4.0 is \" << square << std::endl;\r\n" +
                 "    return 0;\r\n" +
                 "}";
 
@@ -153,40 +158,80 @@ namespace EditorTesting
         {
             Refactor refactor = new Refactor();
 
-            string old_name = "close()";
-            string new_name = "is_open()";
+            string old_name = "RemoveItem";
+            string new_name = "DeleteItem";
 
             string text =
                 "#include <iostream>\r\n" +
-                "#include <fstream>\r\n" +
+                "#include <vector>\r\n" +
+                "class ShoppingCart {\r\n" +
+                "public:\r\n" +
+                "    void AddItem(const std::string& item) {\r\n" +
+                "        items_.push_back(item);\r\n" +
+                "    }\r\n" +
+                "    void RemoveItem(const std::string& item) {\r\n" +
+                "        for (auto it = items_.begin(); it != items_.end(); ++it) {\r\n" +
+                "            if (*it == item) {\r\n" +
+                "                items_.erase(it);\r\n" +
+                "                break;\r\n" +
+                "            }\r\n" +
+                "        }\r\n" +
+                "    }\r\n" +
+                "    void DisplayCart() {\r\n" +
+                "        std::cout << \"Shopping Cart Contents:\" << std::endl;\r\n" +
+                "        for (const std::string& item : items_) {\r\n" +
+                "            std::cout << \"- \" << item << std::endl;\r\n" +
+                "        }\r\n" +
+                "    }\r\n" +
+                "private:\r\n" +
+                "    std::vector<std::string> items_;\r\n" +
+                "};\r\n" +
                 "int main() {\r\n" +
-                "    std::ifstream inputFile(\"example.txt\");\r\n" +
-                "    if (!inputFile) {\r\n" +
-                "        std::cerr << \"Could not open file for reading.\" << std::endl;\r\n" +
-                "        return 1;\r\n" +
-                "    }\r\n" +
-                "    std::string line;\r\n" +
-                "    while (std::getline(inputFile, line)) {\r\n" +
-                "        std::cout << line << std::endl;\r\n" +
-                "    }\r\n" +
-                "    inputFile.close();\r\n" +
+                "    ShoppingCart myCart;\r\n" +
+                "    myCart.AddItem(\"Item 1\");\r\n" +
+                "    myCart.AddItem(\"Item 2\");\r\n" +
+                "    myCart.AddItem(\"Item 3\");\r\n" +
+                "    myCart.DisplayCart();\r\n" +
+                "    myCart.RemoveItem(\"Item 2\");\r\n" +
+                "    std::cout << \"After removing Item 2:\" << std::endl;\r\n" +
+                "    myCart.DisplayCart();\r\n" +
                 "    return 0;\r\n" +
                 "}";
 
             string res =
                 "#include <iostream>\r\n" +
-                "#include <fstream>\r\n" +
+                "#include <vector>\r\n" +
+                "class ShoppingCart {\r\n" +
+                "public:\r\n" +
+                "    void AddItem(const std::string& item) {\r\n" +
+                "        items_.push_back(item);\r\n" +
+                "    }\r\n" +
+                "    void DeleteItem(const std::string& item) {\r\n" +
+                "        for (auto it = items_.begin(); it != items_.end(); ++it) {\r\n" +
+                "            if (*it == item) {\r\n" +
+                "                items_.erase(it);\r\n" +
+                "                break;\r\n" +
+                "            }\r\n" +
+                "        }\r\n" +
+                "    }\r\n" +
+                "    void DisplayCart() {\r\n" +
+                "        std::cout << \"Shopping Cart Contents:\" << std::endl;\r\n" +
+                "        for (const std::string& item : items_) {\r\n" +
+                "            std::cout << \"- \" << item << std::endl;\r\n" +
+                "        }\r\n" +
+                "    }\r\n" +
+                "private:\r\n" +
+                "    std::vector<std::string> items_;\r\n" +
+                "};\r\n" +
                 "int main() {\r\n" +
-                "    std::ifstream inputFile(\"example.txt\");\r\n" +
-                "    if (!inputFile) {\r\n" +
-                "        std::cerr << \"Could not open file for reading.\" << std::endl;\r\n" +
-                "        return 1;\r\n" +
-                "    }\r\n" +
-                "    std::string line;\r\n" +
-                "    while (std::getline(inputFile, line)) {\r\n" +
-                "        std::cout << line << std::endl;\r\n" +
-                "    }\r\n" +
-                "    inputFile.is_open();\r\n" +
+                "    ShoppingCart myCart;\r\n" +
+                "    myCart.AddItem(\"Item 1\");\r\n" +
+                "    myCart.AddItem(\"Item 2\");\r\n" +
+                "    myCart.AddItem(\"Item 3\");\r\n" +
+                "    myCart.DisplayCart();\r\n" +
+                "    myCart.DeleteItem(\"Item 2\");\r\n" +
+                "    std::cout << \"After removing Item 2:\" << std::endl;\r\n" +
+                "    myCart.DisplayCart();\r\n" +
                 "    return 0;\r\n" +
                 "}";
 
@@ -198,8 +243,8 @@ namespace EditorTesting
         {
             Refactor refactor = new Refactor();
 
-            string old_name = "void insertionSort";
-            string new_name = "int injectionSort";
+            string old_name = "insertionSort";
+            string new_name = "injectionSort";
 
             string text =
                 "#include <iostream>\r\n" +
@@ -217,7 +262,7 @@ namespace EditorTesting
 
             string res =
                 "#include <iostream>\r\n" +
-                "int injectionSort(int arr[], int n) {\r\n" +
+                "void injectionSort(int arr[], int n) {\r\n" +
                 "    for (int i = 1; i < n; i++) {\r\n" +
                 "        int key = arr[i];\r\n" +
                 "        int j = i - 1;\r\n" +
@@ -237,8 +282,8 @@ namespace EditorTesting
         {
             Refactor refactor = new Refactor();
 
-            string old_name = "displayInfo()";
-            string new_name = "showInfo()";
+            string old_name = "displayInfo";
+            string new_name = "showInfo";
 
             string text =
                 "#include <iostream>\r\n" +
@@ -404,8 +449,8 @@ namespace EditorTesting
         {
             Refactor refactor = new Refactor();
 
-            string old_name = "calculateFactorial(int n)";
-            string new_name = "computeFactorial(int n)";
+            string old_name = "calculateFactorial";
+            string new_name = "computeFactorial";
 
             string text =
                 "#include <iostream>\r\n" +
