@@ -132,7 +132,7 @@ namespace EditorTesting
                 "};\r\n" +
                 "int main() {\r\n" +
                 "    double square = MathUtils::Square(4.0);\r\n" +
-                "    std::cout << \"Square of 4.0 is \" << square << std::endl;\r\n" +
+                "    std::cout << \"Square() of 4.0 is \" << square << std::endl;\r\n" +
                 "    return 0;\r\n" +
                 "}";
 
@@ -146,7 +146,7 @@ namespace EditorTesting
                 "};\r\n" +
                 "int main() {\r\n" +
                 "    double square = MathUtils::Rectangle(4.0);\r\n" +
-                "    std::cout << \"Square of 4.0 is \" << square << std::endl;\r\n" +
+                "    std::cout << \"Rectangle() of 4.0 is \" << square << std::endl;\r\n" +
                 "    return 0;\r\n" +
                 "}";
 
