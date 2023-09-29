@@ -45,6 +45,7 @@
             this.PrewWord.TabIndex = 17;
             this.PrewWord.Text = "Prew";
             this.PrewWord.UseVisualStyleBackColor = true;
+            this.PrewWord.Click += new System.EventHandler(this.PrewWord_Click);
             // 
             // NextWord
             // 
@@ -55,6 +56,7 @@
             this.NextWord.TabIndex = 16;
             this.NextWord.Text = "Next";
             this.NextWord.UseVisualStyleBackColor = true;
+            this.NextWord.Click += new System.EventHandler(this.NextWord_Click);
             // 
             // Renew
             // 
@@ -65,6 +67,7 @@
             this.Renew.TabIndex = 15;
             this.Renew.Text = "Знайти";
             this.Renew.UseVisualStyleBackColor = true;
+            this.Renew.Click += new System.EventHandler(this.Renew_Click);
             // 
             // Cancel
             // 
@@ -75,6 +78,7 @@
             this.Cancel.TabIndex = 14;
             this.Cancel.Text = "Скасувати";
             this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // TextOld
             // 
