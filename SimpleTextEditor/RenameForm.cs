@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SimpleTextEditor
 {
-    public partial class Form1 : Form
+    public partial class RenameForm : Form
     {
-        public Form1()
+        public RenameForm()
         {
             InitializeComponent();
         }
