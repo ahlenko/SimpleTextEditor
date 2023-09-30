@@ -44,7 +44,7 @@ namespace EditorTesting
                 "    }\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -81,7 +81,7 @@ namespace EditorTesting
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -111,7 +111,7 @@ namespace EditorTesting
                 "}";
 
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -150,7 +150,7 @@ namespace EditorTesting
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -235,7 +235,7 @@ namespace EditorTesting
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -274,7 +274,7 @@ namespace EditorTesting
                 "    }\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -325,7 +325,7 @@ namespace EditorTesting
                 "    double gpa_;\r\n" +
                 "};";
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -368,7 +368,7 @@ namespace EditorTesting
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -441,7 +441,7 @@ namespace EditorTesting
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -504,7 +504,7 @@ namespace EditorTesting
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name));
+            Assert.AreEqual(res, refactor.RenameMethod(text, old_name, new_name, false));
         }
     }
 }

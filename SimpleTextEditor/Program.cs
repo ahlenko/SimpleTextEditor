@@ -7,7 +7,7 @@ namespace SimpleTextEditor {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormTextEditor());
+            Application.Run(new TextEditorView());
         }
     }
 

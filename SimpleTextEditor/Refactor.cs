@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleTextEditor
-{
-    public class Refactor
-    {
-        public string RenameMethod(string text, string old_name, string new_name)
-        {
+namespace SimpleTextEditor {
+    public class Refactor {
+        public string RenameMethod(string text, string old_name, string new_name, bool comment) {
             return "";
         }
 

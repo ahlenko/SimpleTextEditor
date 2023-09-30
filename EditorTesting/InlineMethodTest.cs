@@ -183,20 +183,9 @@ namespace EditorTesting {
         public void TestMethod5() {
             Refactor refactor = new Refactor();
 
-            string method_call = "user(\"Іван\", 30)";
+            string method_call = "user.displayInfo()";
 
             string text =
-                "#include <iostream>\r\n" +
-                "class User { // Клас \"Користувач\"\r\n" +
-                "public:\r\n" +
-                "    User(std::string name, int age) : name(name), age(age) {}\r\n" +
-                "    void displayInfo() {\r\n" +
-                "        std::cout << \"Ім'я: \" << name << std::endl;\r\n" +
-                "        std::cout << \"Вік: \" << age << \" років\" << std::endl;}\r\n" +
-                "private:\r\n" +
-                "    std::string name;\r\n" +
-                "    int age;\r\n" +
-                "};\r\n" +
                 "int main() {\r\n" +
                 "    User user(\"Іван\", 30);\r\n" +
                 "    std::cout << \"Інформація про користувача:\" << std::endl;\r\n" +
@@ -207,7 +196,7 @@ namespace EditorTesting {
             string returned_var = "_";
 
             string res =
-                "Worning! Not allowed to inline method.\n Thet methot is class constructor";
+                "Worning! Not allowed to inline method.\n Methot description not found";
 
             Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
         }

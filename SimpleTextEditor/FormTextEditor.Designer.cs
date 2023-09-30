@@ -1,6 +1,6 @@
 ﻿namespace SimpleTextEditor
 {
-    partial class FormTextEditor
+    partial class TextEditorView
     {
         /// <summary>
         /// Required designer variable.
@@ -52,6 +52,10 @@
             this.MainLabel = new System.Windows.Forms.Label();
             this.OpenFileButton = new System.Windows.Forms.Button();
             this.CreateFileButton = new System.Windows.Forms.Button();
+            this.StatusChar = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusRow = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StripStatus.SuspendLayout();
             this.StripMenu.SuspendLayout();
             this.InterfaceGroup.SuspendLayout();
             this.SuspendLayout();
@@ -59,8 +63,13 @@
             // StripStatus
             // 
             this.StripStatus.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.StripStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusChar,
+            this.StatusRow,
+            this.toolStripStatusLabel3});
             this.StripStatus.Location = new System.Drawing.Point(0, 606);
             this.StripStatus.Name = "StripStatus";
+            this.StripStatus.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.StripStatus.Size = new System.Drawing.Size(1122, 22);
             this.StripStatus.TabIndex = 0;
             // 
@@ -93,14 +102,14 @@
             // MenuCreate
             // 
             this.MenuCreate.Name = "MenuCreate";
-            this.MenuCreate.Size = new System.Drawing.Size(224, 26);
+            this.MenuCreate.Size = new System.Drawing.Size(187, 26);
             this.MenuCreate.Text = "Створити";
             this.MenuCreate.Click += new System.EventHandler(this.CreateFileButton_Click);
             // 
             // MenuOpen
             // 
             this.MenuOpen.Name = "MenuOpen";
-            this.MenuOpen.Size = new System.Drawing.Size(224, 26);
+            this.MenuOpen.Size = new System.Drawing.Size(187, 26);
             this.MenuOpen.Text = "Відкрити";
             this.MenuOpen.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
@@ -108,7 +117,7 @@
             // 
             this.MenuSave.Enabled = false;
             this.MenuSave.Name = "MenuSave";
-            this.MenuSave.Size = new System.Drawing.Size(224, 26);
+            this.MenuSave.Size = new System.Drawing.Size(187, 26);
             this.MenuSave.Text = "Зберегти";
             this.MenuSave.Click += new System.EventHandler(this.MenuSave_Click);
             // 
@@ -116,7 +125,7 @@
             // 
             this.MenuSaveAS.Enabled = false;
             this.MenuSaveAS.Name = "MenuSaveAS";
-            this.MenuSaveAS.Size = new System.Drawing.Size(224, 26);
+            this.MenuSaveAS.Size = new System.Drawing.Size(187, 26);
             this.MenuSaveAS.Text = "Зберегти як ...";
             this.MenuSaveAS.Click += new System.EventHandler(this.MenuSaveAS_Click);
             // 
@@ -124,7 +133,7 @@
             // 
             this.MenuClose.Enabled = false;
             this.MenuClose.Name = "MenuClose";
-            this.MenuClose.Size = new System.Drawing.Size(224, 26);
+            this.MenuClose.Size = new System.Drawing.Size(187, 26);
             this.MenuClose.Text = "Закрити";
             this.MenuClose.Click += new System.EventHandler(this.MenuClose_Click);
             // 
@@ -137,9 +146,11 @@
             this.MenuRefactor.Name = "MenuRefactor";
             this.MenuRefactor.Size = new System.Drawing.Size(112, 24);
             this.MenuRefactor.Text = "Рефакторинг";
+            this.MenuRefactor.Click += new System.EventHandler(this.MenuRefactor_Click);
             // 
             // MenuRenameMethod
             // 
+            this.MenuRenameMethod.Enabled = false;
             this.MenuRenameMethod.Name = "MenuRenameMethod";
             this.MenuRenameMethod.Size = new System.Drawing.Size(267, 26);
             this.MenuRenameMethod.Text = "Перейменування методу";
@@ -147,6 +158,7 @@
             // 
             // MenuInlineMethod
             // 
+            this.MenuInlineMethod.Enabled = false;
             this.MenuInlineMethod.Name = "MenuInlineMethod";
             this.MenuInlineMethod.Size = new System.Drawing.Size(267, 26);
             this.MenuInlineMethod.Text = "Вбудова методу";
@@ -173,14 +185,14 @@
             // MFontSizePlus
             // 
             this.MFontSizePlus.Name = "MFontSizePlus";
-            this.MFontSizePlus.Size = new System.Drawing.Size(224, 26);
+            this.MFontSizePlus.Size = new System.Drawing.Size(215, 26);
             this.MFontSizePlus.Text = "Збільшити шрифт";
             this.MFontSizePlus.Click += new System.EventHandler(this.MFontSizePlus_Click);
             // 
             // MFontSizeMinus
             // 
             this.MFontSizeMinus.Name = "MFontSizeMinus";
-            this.MFontSizeMinus.Size = new System.Drawing.Size(224, 26);
+            this.MFontSizeMinus.Size = new System.Drawing.Size(215, 26);
             this.MFontSizeMinus.Text = "Зменшити шрифт";
             this.MFontSizeMinus.Click += new System.EventHandler(this.MFontSizeMinus_Click);
             // 
@@ -195,16 +207,22 @@
             this.TextEditorWindow.Size = new System.Drawing.Size(1087, 572);
             this.TextEditorWindow.TabIndex = 2;
             this.TextEditorWindow.Visible = false;
+            this.TextEditorWindow.Click += new System.EventHandler(this.TextEditorWindow_TextChanged);
+            this.TextEditorWindow.TextChanged += new System.EventHandler(this.TextEditorWindow_TextChanged);
             // 
             // ScrollEditor
             // 
             this.ScrollEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ScrollEditor.Location = new System.Drawing.Point(1098, 28);
+            this.ScrollEditor.LargeChange = 3;
+            this.ScrollEditor.Location = new System.Drawing.Point(1091, 35);
+            this.ScrollEditor.Maximum = 10;
             this.ScrollEditor.Name = "ScrollEditor";
-            this.ScrollEditor.Size = new System.Drawing.Size(18, 578);
+            this.ScrollEditor.Size = new System.Drawing.Size(23, 565);
+            this.ScrollEditor.SmallChange = 3;
             this.ScrollEditor.TabIndex = 3;
             this.ScrollEditor.Visible = false;
+            this.ScrollEditor.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollEditor_Scroll);
             // 
             // InterfaceGroup
             // 
@@ -217,7 +235,7 @@
             this.InterfaceGroup.Controls.Add(this.CreateFileButton);
             this.InterfaceGroup.Location = new System.Drawing.Point(8, 28);
             this.InterfaceGroup.Name = "InterfaceGroup";
-            this.InterfaceGroup.Size = new System.Drawing.Size(1108, 575);
+            this.InterfaceGroup.Size = new System.Drawing.Size(1106, 575);
             this.InterfaceGroup.TabIndex = 4;
             this.InterfaceGroup.TabStop = false;
             // 
@@ -265,7 +283,26 @@
             this.CreateFileButton.UseVisualStyleBackColor = true;
             this.CreateFileButton.Click += new System.EventHandler(this.CreateFileButton_Click);
             // 
-            // FormTextEditor
+            // StatusChar
+            // 
+            this.StatusChar.Name = "StatusChar";
+            this.StatusChar.Size = new System.Drawing.Size(86, 20);
+            this.StatusChar.Text = "Символ: 00";
+            this.StatusChar.Visible = false;
+            // 
+            // StatusRow
+            // 
+            this.StatusRow.Name = "StatusRow";
+            this.StatusRow.Size = new System.Drawing.Size(72, 20);
+            this.StatusRow.Text = "Рядок: 00";
+            this.StatusRow.Visible = false;
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 20);
+            // 
+            // TextEditorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -280,8 +317,10 @@
             this.MaximumSize = new System.Drawing.Size(1140, 675);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1140, 675);
-            this.Name = "FormTextEditor";
+            this.Name = "TextEditorView";
             this.Text = "TextEditorView";
+            this.StripStatus.ResumeLayout(false);
+            this.StripStatus.PerformLayout();
             this.StripMenu.ResumeLayout(false);
             this.StripMenu.PerformLayout();
             this.InterfaceGroup.ResumeLayout(false);
@@ -317,6 +356,9 @@
         private System.Windows.Forms.Label MainLabel;
         private System.Windows.Forms.Button OpenFileButton;
         private System.Windows.Forms.Button CreateFileButton;
+        private System.Windows.Forms.ToolStripStatusLabel StatusChar;
+        private System.Windows.Forms.ToolStripStatusLabel StatusRow;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
     }
 }
 
