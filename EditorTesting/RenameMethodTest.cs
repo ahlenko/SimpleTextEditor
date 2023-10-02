@@ -94,7 +94,7 @@ namespace EditorTesting
 
             string text =
                 "#include <iostream>\r\n" +
-                "    popUpSort(mass, 100);\r\n" +
+                "    popUpSort(arr, n);\r\n" +
                 "    for (int i = 0; i < n; i++) {\r\n" +
                 "        std::cout << arr[i] << \" \";\r\n" +
                 "    }\r\n" +
