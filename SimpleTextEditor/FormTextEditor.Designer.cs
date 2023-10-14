@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.StripStatus = new System.Windows.Forms.StatusStrip();
+            this.StatusChar = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusRow = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripMenu = new System.Windows.Forms.MenuStrip();
             this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCreate = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,9 +55,6 @@
             this.MainLabel = new System.Windows.Forms.Label();
             this.OpenFileButton = new System.Windows.Forms.Button();
             this.CreateFileButton = new System.Windows.Forms.Button();
-            this.StatusChar = new System.Windows.Forms.ToolStripStatusLabel();
-            this.StatusRow = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatus.SuspendLayout();
             this.StripMenu.SuspendLayout();
             this.InterfaceGroup.SuspendLayout();
@@ -67,11 +67,31 @@
             this.StatusChar,
             this.StatusRow,
             this.toolStripStatusLabel3});
-            this.StripStatus.Location = new System.Drawing.Point(0, 606);
+            this.StripStatus.Location = new System.Drawing.Point(0, 495);
             this.StripStatus.Name = "StripStatus";
+            this.StripStatus.Padding = new System.Windows.Forms.Padding(10, 0, 1, 0);
             this.StripStatus.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.StripStatus.Size = new System.Drawing.Size(1122, 22);
+            this.StripStatus.Size = new System.Drawing.Size(843, 22);
             this.StripStatus.TabIndex = 0;
+            // 
+            // StatusChar
+            // 
+            this.StatusChar.Name = "StatusChar";
+            this.StatusChar.Size = new System.Drawing.Size(69, 17);
+            this.StatusChar.Text = "Символ: 00";
+            this.StatusChar.Visible = false;
+            // 
+            // StatusRow
+            // 
+            this.StatusRow.Name = "StatusRow";
+            this.StatusRow.Size = new System.Drawing.Size(57, 17);
+            this.StatusRow.Text = "Рядок: 00";
+            this.StatusRow.Visible = false;
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 17);
             // 
             // StripMenu
             // 
@@ -83,7 +103,8 @@
             this.MenuView});
             this.StripMenu.Location = new System.Drawing.Point(0, 0);
             this.StripMenu.Name = "StripMenu";
-            this.StripMenu.Size = new System.Drawing.Size(1122, 28);
+            this.StripMenu.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.StripMenu.Size = new System.Drawing.Size(843, 24);
             this.StripMenu.TabIndex = 1;
             this.StripMenu.Text = "StripMenu";
             // 
@@ -96,20 +117,20 @@
             this.MenuSaveAS,
             this.MenuClose});
             this.MenuFile.Name = "MenuFile";
-            this.MenuFile.Size = new System.Drawing.Size(59, 24);
+            this.MenuFile.Size = new System.Drawing.Size(48, 20);
             this.MenuFile.Text = "Файл";
             // 
             // MenuCreate
             // 
             this.MenuCreate.Name = "MenuCreate";
-            this.MenuCreate.Size = new System.Drawing.Size(187, 26);
+            this.MenuCreate.Size = new System.Drawing.Size(151, 22);
             this.MenuCreate.Text = "Створити";
             this.MenuCreate.Click += new System.EventHandler(this.CreateFileButton_Click);
             // 
             // MenuOpen
             // 
             this.MenuOpen.Name = "MenuOpen";
-            this.MenuOpen.Size = new System.Drawing.Size(187, 26);
+            this.MenuOpen.Size = new System.Drawing.Size(151, 22);
             this.MenuOpen.Text = "Відкрити";
             this.MenuOpen.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
@@ -117,7 +138,7 @@
             // 
             this.MenuSave.Enabled = false;
             this.MenuSave.Name = "MenuSave";
-            this.MenuSave.Size = new System.Drawing.Size(187, 26);
+            this.MenuSave.Size = new System.Drawing.Size(151, 22);
             this.MenuSave.Text = "Зберегти";
             this.MenuSave.Click += new System.EventHandler(this.MenuSave_Click);
             // 
@@ -125,7 +146,7 @@
             // 
             this.MenuSaveAS.Enabled = false;
             this.MenuSaveAS.Name = "MenuSaveAS";
-            this.MenuSaveAS.Size = new System.Drawing.Size(187, 26);
+            this.MenuSaveAS.Size = new System.Drawing.Size(151, 22);
             this.MenuSaveAS.Text = "Зберегти як ...";
             this.MenuSaveAS.Click += new System.EventHandler(this.MenuSaveAS_Click);
             // 
@@ -133,7 +154,7 @@
             // 
             this.MenuClose.Enabled = false;
             this.MenuClose.Name = "MenuClose";
-            this.MenuClose.Size = new System.Drawing.Size(187, 26);
+            this.MenuClose.Size = new System.Drawing.Size(151, 22);
             this.MenuClose.Text = "Закрити";
             this.MenuClose.Click += new System.EventHandler(this.MenuClose_Click);
             // 
@@ -144,7 +165,7 @@
             this.MenuInlineMethod});
             this.MenuRefactor.Enabled = false;
             this.MenuRefactor.Name = "MenuRefactor";
-            this.MenuRefactor.Size = new System.Drawing.Size(112, 24);
+            this.MenuRefactor.Size = new System.Drawing.Size(91, 20);
             this.MenuRefactor.Text = "Рефакторинг";
             this.MenuRefactor.Click += new System.EventHandler(this.MenuRefactor_Click);
             // 
@@ -152,7 +173,7 @@
             // 
             this.MenuRenameMethod.Enabled = false;
             this.MenuRenameMethod.Name = "MenuRenameMethod";
-            this.MenuRenameMethod.Size = new System.Drawing.Size(267, 26);
+            this.MenuRenameMethod.Size = new System.Drawing.Size(211, 22);
             this.MenuRenameMethod.Text = "Перейменування методу";
             this.MenuRenameMethod.Click += new System.EventHandler(this.MenuRenameMethod_Click);
             // 
@@ -160,7 +181,7 @@
             // 
             this.MenuInlineMethod.Enabled = false;
             this.MenuInlineMethod.Name = "MenuInlineMethod";
-            this.MenuInlineMethod.Size = new System.Drawing.Size(267, 26);
+            this.MenuInlineMethod.Size = new System.Drawing.Size(211, 22);
             this.MenuInlineMethod.Text = "Вбудова методу";
             this.MenuInlineMethod.Click += new System.EventHandler(this.MenuInlineMethod_Click);
             // 
@@ -168,7 +189,7 @@
             // 
             this.MenuSearch.Enabled = false;
             this.MenuSearch.Name = "MenuSearch";
-            this.MenuSearch.Size = new System.Drawing.Size(69, 24);
+            this.MenuSearch.Size = new System.Drawing.Size(58, 20);
             this.MenuSearch.Text = "Пошук";
             this.MenuSearch.Click += new System.EventHandler(this.MenuSearch_Click);
             // 
@@ -179,20 +200,20 @@
             this.MFontSizeMinus});
             this.MenuView.Enabled = false;
             this.MenuView.Name = "MenuView";
-            this.MenuView.Size = new System.Drawing.Size(49, 24);
+            this.MenuView.Size = new System.Drawing.Size(39, 20);
             this.MenuView.Text = "Вид";
             // 
             // MFontSizePlus
             // 
             this.MFontSizePlus.Name = "MFontSizePlus";
-            this.MFontSizePlus.Size = new System.Drawing.Size(215, 26);
+            this.MFontSizePlus.Size = new System.Drawing.Size(176, 22);
             this.MFontSizePlus.Text = "Збільшити шрифт";
             this.MFontSizePlus.Click += new System.EventHandler(this.MFontSizePlus_Click);
             // 
             // MFontSizeMinus
             // 
             this.MFontSizeMinus.Name = "MFontSizeMinus";
-            this.MFontSizeMinus.Size = new System.Drawing.Size(215, 26);
+            this.MFontSizeMinus.Size = new System.Drawing.Size(176, 22);
             this.MFontSizeMinus.Text = "Зменшити шрифт";
             this.MFontSizeMinus.Click += new System.EventHandler(this.MFontSizeMinus_Click);
             // 
@@ -201,10 +222,12 @@
             this.TextEditorWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextEditorWindow.Location = new System.Drawing.Point(8, 31);
+            this.TextEditorWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TextEditorWindow.Location = new System.Drawing.Point(6, 25);
+            this.TextEditorWindow.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.TextEditorWindow.Multiline = true;
             this.TextEditorWindow.Name = "TextEditorWindow";
-            this.TextEditorWindow.Size = new System.Drawing.Size(1087, 572);
+            this.TextEditorWindow.Size = new System.Drawing.Size(816, 466);
             this.TextEditorWindow.TabIndex = 2;
             this.TextEditorWindow.Visible = false;
             this.TextEditorWindow.Click += new System.EventHandler(this.TextEditorWindow_TextChanged);
@@ -215,10 +238,10 @@
             this.ScrollEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ScrollEditor.LargeChange = 3;
-            this.ScrollEditor.Location = new System.Drawing.Point(1091, 35);
+            this.ScrollEditor.Location = new System.Drawing.Point(818, 28);
             this.ScrollEditor.Maximum = 10;
             this.ScrollEditor.Name = "ScrollEditor";
-            this.ScrollEditor.Size = new System.Drawing.Size(23, 565);
+            this.ScrollEditor.Size = new System.Drawing.Size(23, 459);
             this.ScrollEditor.SmallChange = 3;
             this.ScrollEditor.TabIndex = 3;
             this.ScrollEditor.Visible = false;
@@ -233,9 +256,11 @@
             this.InterfaceGroup.Controls.Add(this.MainLabel);
             this.InterfaceGroup.Controls.Add(this.OpenFileButton);
             this.InterfaceGroup.Controls.Add(this.CreateFileButton);
-            this.InterfaceGroup.Location = new System.Drawing.Point(8, 28);
+            this.InterfaceGroup.Location = new System.Drawing.Point(6, 23);
+            this.InterfaceGroup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.InterfaceGroup.Name = "InterfaceGroup";
-            this.InterfaceGroup.Size = new System.Drawing.Size(1106, 575);
+            this.InterfaceGroup.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.InterfaceGroup.Size = new System.Drawing.Size(830, 467);
             this.InterfaceGroup.TabIndex = 4;
             this.InterfaceGroup.TabStop = false;
             // 
@@ -243,9 +268,10 @@
             // 
             this.SecondLabel.AutoSize = true;
             this.SecondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SecondLabel.Location = new System.Drawing.Point(425, 222);
+            this.SecondLabel.Location = new System.Drawing.Point(319, 180);
+            this.SecondLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SecondLabel.Name = "SecondLabel";
-            this.SecondLabel.Size = new System.Drawing.Size(236, 25);
+            this.SecondLabel.Size = new System.Drawing.Size(191, 20);
             this.SecondLabel.TabIndex = 3;
             this.SecondLabel.Text = "Рефакторингу С++ коду";
             this.SecondLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -254,9 +280,10 @@
             // 
             this.MainLabel.AutoSize = true;
             this.MainLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MainLabel.Location = new System.Drawing.Point(440, 122);
+            this.MainLabel.Location = new System.Drawing.Point(330, 99);
+            this.MainLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MainLabel.Name = "MainLabel";
-            this.MainLabel.Size = new System.Drawing.Size(216, 46);
+            this.MainLabel.Size = new System.Drawing.Size(169, 37);
             this.MainLabel.TabIndex = 2;
             this.MainLabel.Text = "Програма";
             this.MainLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -264,9 +291,10 @@
             // OpenFileButton
             // 
             this.OpenFileButton.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OpenFileButton.Location = new System.Drawing.Point(264, 463);
+            this.OpenFileButton.Location = new System.Drawing.Point(198, 376);
+            this.OpenFileButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.OpenFileButton.Name = "OpenFileButton";
-            this.OpenFileButton.Size = new System.Drawing.Size(254, 51);
+            this.OpenFileButton.Size = new System.Drawing.Size(190, 41);
             this.OpenFileButton.TabIndex = 1;
             this.OpenFileButton.Text = "Відкрити файл";
             this.OpenFileButton.UseVisualStyleBackColor = true;
@@ -275,48 +303,31 @@
             // CreateFileButton
             // 
             this.CreateFileButton.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreateFileButton.Location = new System.Drawing.Point(587, 463);
+            this.CreateFileButton.Location = new System.Drawing.Point(440, 376);
+            this.CreateFileButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CreateFileButton.Name = "CreateFileButton";
-            this.CreateFileButton.Size = new System.Drawing.Size(254, 51);
+            this.CreateFileButton.Size = new System.Drawing.Size(190, 41);
             this.CreateFileButton.TabIndex = 0;
             this.CreateFileButton.Text = "Створити файл";
             this.CreateFileButton.UseVisualStyleBackColor = true;
             this.CreateFileButton.Click += new System.EventHandler(this.CreateFileButton_Click);
             // 
-            // StatusChar
-            // 
-            this.StatusChar.Name = "StatusChar";
-            this.StatusChar.Size = new System.Drawing.Size(86, 20);
-            this.StatusChar.Text = "Символ: 00";
-            this.StatusChar.Visible = false;
-            // 
-            // StatusRow
-            // 
-            this.StatusRow.Name = "StatusRow";
-            this.StatusRow.Size = new System.Drawing.Size(72, 20);
-            this.StatusRow.Text = "Рядок: 00";
-            this.StatusRow.Visible = false;
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 20);
-            // 
             // TextEditorView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1122, 628);
+            this.ClientSize = new System.Drawing.Size(843, 517);
             this.Controls.Add(this.InterfaceGroup);
             this.Controls.Add(this.ScrollEditor);
             this.Controls.Add(this.TextEditorWindow);
             this.Controls.Add(this.StripStatus);
             this.Controls.Add(this.StripMenu);
             this.MainMenuStrip = this.StripMenu;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1140, 675);
+            this.MaximumSize = new System.Drawing.Size(859, 556);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1140, 675);
+            this.MinimumSize = new System.Drawing.Size(859, 556);
             this.Name = "TextEditorView";
             this.Text = "TextEditorView";
             this.StripStatus.ResumeLayout(false);

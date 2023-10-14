@@ -1,4 +1,5 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -98,13 +99,15 @@ namespace SimpleTextEditor {
             string MethodName = ""; index2 = name.IndexOf('.') + 1;
             while (name[index2] != '(') { MethodName += name[index2]; index2++;}
 
-            string InsertedMethodText = "{";
+            string InsertedMethodText = "";
             id = ClassDeclaratoin.IndexOf(MethodName);
             do { id++; } while (ClassDeclaratoin[id] != '{');
             cordsLevel = 1; while (cordsLevel != 0){
                 id++; if (ClassDeclaratoin[id] == '{') cordsLevel++;
                 if (ClassDeclaratoin[id] == '}') cordsLevel--;
-                InsertedMethodText += ClassDeclaratoin[id];}
+                InsertedMethodText += ClassDeclaratoin[id];
+            } InsertedMethodText = InsertedMethodText.Remove(
+                InsertedMethodText.Length - 1);
 
             string MethodVariables = "";
             id = ClassDeclaratoin.IndexOf(MethodName);
@@ -127,23 +130,31 @@ namespace SimpleTextEditor {
             string[] segVar = Variables.Split(',');
 
             id = 0; foreach (string s in segMetVar) {
-                string st = s.TrimStart().TrimEnd();
+                segVar[id] = segVar[id].Trim();
+                string st = s.Trim();
                 string[] temp = st.Split(' '); segMetVar[id] = temp[temp.Length - 1]; id++;}
 
             id = 0; foreach(string s in segMetVar) {
                 InsertedMethodText = InsertedMethodText.Replace(s, segVar[id]); id++; }
 
             if (returned_var != "_") 
-                InsertedMethodText = InsertedMethodText.Replace("return", returned_var);
+                InsertedMethodText = InsertedMethodText.Replace("return ", returned_var + " = ");
             else 
                 InsertedMethodText = InsertedMethodText.Replace("return", "");
+
+            string[] Inserted = InsertedMethodText.Split('\r');
+            foreach (string s in Inserted) {
+                id = Array.IndexOf(Inserted, s); 
+                if (s.Contains("\n")) Inserted[id] = s.Replace("\n", ""); 
+                Inserted[id] = Inserted[id].Trim();}
             
             string ReturnedCode = "//MInline: " + name;
             if (returned_var != "_") 
-                ReturnedCode += "\r\n" + ReturnMethodType + " " + returned_var + " ";
-            ReturnedCode += InsertedMethodText + "\r\n";
-
-            
+                ReturnedCode += "\r\n" + ReturnMethodType + " " + returned_var + "; {\r\n";
+            foreach (string s in Inserted) 
+                if (s.Length != 0) ReturnedCode += "    " + s + "\r\n";
+            ReturnedCode += "}\r\n";
+            ReturnedCode = "Test";
 
             return "";
         }
