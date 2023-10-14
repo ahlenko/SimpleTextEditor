@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace SimpleTextEditor {
     public partial class TextEditorView : Form {
@@ -221,9 +222,8 @@ namespace SimpleTextEditor {
         private bool isOnlyName(string selectedText) {
             TextEditorWindow.SelectionLength += 1;
             selectedText = TextEditorWindow.SelectedText;
-            string pattern = @"\b([A-Za-z_]\w*)\s*\(";
-            Match match = Regex.Match(selectedText, pattern);
-            return match.Success;
+            string pattern = @"^[a-zA-Z_][a-zA-Z0-9_]*\($";
+            return Regex.IsMatch(selectedText, pattern);
         }
 
         // Виклик функції перейменування методу
@@ -244,7 +244,33 @@ namespace SimpleTextEditor {
 
         // Виклик функції вбудови методу
         private void MenuInlineMethod_Click(object sender, EventArgs e) {
-            
+            string selectedText = TextEditorWindow.SelectedText;
+
+            while (selectedText[0] != ' ') {
+                TextEditorWindow.SelectionStart -= 1;
+                TextEditorWindow.SelectionLength += 1;
+                selectedText = TextEditorWindow.SelectedText;
+            }
+
+            TextEditorWindow.SelectionStart += 1;
+            TextEditorWindow.SelectionLength -= 1;
+
+            using (var customDialog = new InlineForm()) {
+                customDialog.TextOld.Text = origSelectedText;
+                string text = TextEditorWindow.Text;
+                if (text.Contains("void " + origSelectedText) ||
+                    text.Contains("void\t" + origSelectedText)){
+                    customDialog.TextNew.Enabled = false;
+                    customDialog.TextNew.Text = "_";         
+                } if (customDialog.ShowDialog() == DialogResult.OK) {
+                    string oldText = customDialog.TextOld.Text;
+                    string newText = customDialog.TextNew.Text;
+                    TextEditorWindow.Text = refactor.InlineMethod(
+                        TextEditorWindow.Text, TextEditorWindow.SelectionStart,
+                        TextEditorWindow.SelectedText, newText);
+                    MessageBox.Show("Метод " + oldText + " вбудовано до коду у місці виклику");
+                }
+            }
         }
 
         // Виклик дочірнього вікна пошуку

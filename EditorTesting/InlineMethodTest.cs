@@ -26,6 +26,8 @@ namespace EditorTesting {
 
             string returned_var = "t";
 
+            int id = 0;
+
             string res =
                 "#include <iostream>\r\n" +
                 "class MathOperation { public:\r\n" +
@@ -41,7 +43,7 @@ namespace EditorTesting {
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -71,6 +73,8 @@ namespace EditorTesting {
 
             string returned_var = "mult_res";
 
+            int id = 0;
+
             string res =
                 "#include <iostream>\r\n" +
                 "class MathOperation { public:\r\n" +
@@ -92,7 +96,7 @@ namespace EditorTesting {
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -122,6 +126,8 @@ namespace EditorTesting {
 
             string returned_var = "res_div";
 
+            int id = 0;
+
             string res =
                 "#include <iostream>\r\n" +
                 "class MathOperation { public:\r\n" +
@@ -143,7 +149,7 @@ namespace EditorTesting {
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -173,10 +179,12 @@ namespace EditorTesting {
 
             string returned_var = "_";
 
+            int id = 0;
+
             string res =
                 "Worning! Not allowed to inline method.\n Thet methot use private class variable";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -195,10 +203,12 @@ namespace EditorTesting {
 
             string returned_var = "_";
 
+            int id = 0;
+
             string res =
                 "Worning! Not allowed to inline method.\n Methot description not found";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -227,6 +237,8 @@ namespace EditorTesting {
 
             string returned_var = "_";
 
+            int id = 0;
+
             string res =
                 "#include <iostream>\r\n" +
                 "class Car { // Клас Автомобіль\r\n" +
@@ -247,7 +259,7 @@ namespace EditorTesting {
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -281,6 +293,8 @@ namespace EditorTesting {
 
             string returned_var = "res";
 
+            int id = 0;
+
             string res =
                 "class Class1 { public:\r\n" +
                 "    int Add(int a, int b) {\r\n" +
@@ -306,7 +320,7 @@ namespace EditorTesting {
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -340,6 +354,8 @@ namespace EditorTesting {
 
             string returned_var = "res";
 
+            int id = 0;
+
             string res =
                 "class Class1 {public:\r\n" +
                 "    int Add(int a, int b) {\r\n" +
@@ -365,7 +381,7 @@ namespace EditorTesting {
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -398,6 +414,8 @@ namespace EditorTesting {
 
             string returned_var = "boolRes";
 
+            int id = 0;
+
             string res =
                 "class DataProcessor { public:\r\n" +
                 "    int ProcessData(int data) {\r\n" +
@@ -426,7 +444,7 @@ namespace EditorTesting {
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
 
         [TestMethod] //--------------------------------------------------------------------
@@ -459,6 +477,8 @@ namespace EditorTesting {
 
             string returned_var = "res";
 
+            int id = 0;
+
             string res =
                 "class DataProcessor { public:\r\n" +
                 "    int ProcessData(int data) {\r\n" +
@@ -487,7 +507,9 @@ namespace EditorTesting {
                 "    return 0;\r\n" +
                 "}";
 
-            Assert.AreEqual(res, refactor.InlineMethod(method_call, text, returned_var));
+            Assert.AreEqual(res, refactor.InlineMethod(method_call, id, text, returned_var));
         }
     }
 }
+
+
