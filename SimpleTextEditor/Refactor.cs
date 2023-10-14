@@ -130,8 +130,7 @@ namespace SimpleTextEditor {
             string[] segVar = Variables.Split(',');
 
             id = 0; foreach (string s in segMetVar) {
-                segVar[id] = segVar[id].Trim();
-                string st = s.Trim();
+                segVar[id] = segVar[id].Trim(); string st = s.Trim();
                 string[] temp = st.Split(' '); segMetVar[id] = temp[temp.Length - 1]; id++;}
 
             id = 0; foreach(string s in segMetVar) {
@@ -154,9 +153,23 @@ namespace SimpleTextEditor {
             foreach (string s in Inserted) 
                 if (s.Length != 0) ReturnedCode += "    " + s + "\r\n";
             ReturnedCode += "}\r\n";
-            ReturnedCode = "Test";
 
-            return "";
+            string LineWithMethodColl = ""; 
+            int spaces = 0; id = selectionStart;  
+            while (text[id] != '\n') { id--; } id++; 
+            while (text[id] == ' ') { id++; spaces++; }
+            while (text[id] != '\r') { LineWithMethodColl += text[id]; id++; }
+
+            string line = LineWithMethodColl;
+            if (returned_var != "_")
+                LineWithMethodColl = LineWithMethodColl.Replace(name, returned_var);
+
+            string sp = ""; while (spaces != 0) { sp += " "; spaces--; };
+            ReturnedCode = ReturnedCode.Replace("\n", "\n" + sp);
+            ReturnedCode += LineWithMethodColl;
+
+            ReturnedCode = text.Replace(line, ReturnedCode);
+            return ReturnedCode;
         }
     }
 }
