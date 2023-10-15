@@ -1,7 +1,5 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace SimpleTextEditor {
@@ -76,12 +74,14 @@ namespace SimpleTextEditor {
                         while (subStr[i] != ' ' && subStr[i] != '{') { nameCl += subStr[i]; i++; }
                         classNames.AddLast(nameCl); searchIndex += 1;
                     } else terminate = true;
-                } if (searchIndex == 0) return "Problem";
+                } if (searchIndex == 0) return "Worning! Not allowed to inline method." +
+                        "\n Methot description not found";
                 else { foreach (string lines in classNames) {
-                        if (text.Contains(lines + " " + OriginalClassName)) { 
+                        if (text.Contains(lines + " " + OriginalClassName)) {
                             OriginalClassName = lines; break; }
                     } if (OriginalClassName == name.Substring(0, name.IndexOf('.')))
-                        return "Problem"; 
+                        return "Worning! Not allowed to inline method." +
+                            "\n Methot description not found"; 
                 }
             }
 
@@ -129,13 +129,18 @@ namespace SimpleTextEditor {
             string[] segMetVar = MethodVariables.Split(',');
             string[] segVar = Variables.Split(',');
 
+            
             id = 0; foreach (string s in segMetVar) {
-                segVar[id] = segVar[id].Trim(); string st = s.Trim();
-                string[] temp = st.Split(' '); segMetVar[id] = temp[temp.Length - 1]; id++;}
-
-            id = 0; foreach(string s in segMetVar) {
-                InsertedMethodText = InsertedMethodText.Replace(s, segVar[id]); id++; }
-
+                if (s.Length > 0) { 
+                    segVar[id] = segVar[id].Trim(); string st = s.Trim();
+                    string[] temp = st.Split(' '); segMetVar[id] = temp[temp.Length - 1]; id++;
+                }
+            } id = 0; foreach (string s in segMetVar) {
+                if (s.Length > 0)
+                InsertedMethodText = InsertedMethodText.Replace(s, segVar[id]); id++;
+            }
+            
+            
             if (returned_var != "_") 
                 InsertedMethodText = InsertedMethodText.Replace("return ", returned_var + " = ");
             else 
@@ -148,8 +153,9 @@ namespace SimpleTextEditor {
                 Inserted[id] = Inserted[id].Trim();}
             
             string ReturnedCode = "//MInline: " + name;
-            if (returned_var != "_") 
+            if (returned_var != "_")
                 ReturnedCode += "\r\n" + ReturnMethodType + " " + returned_var + "; {\r\n";
+            else ReturnedCode += "{\r\n";
             foreach (string s in Inserted) 
                 if (s.Length != 0) ReturnedCode += "    " + s + "\r\n";
             ReturnedCode += "}\r\n";
@@ -163,6 +169,7 @@ namespace SimpleTextEditor {
             string line = LineWithMethodColl;
             if (returned_var != "_")
                 LineWithMethodColl = LineWithMethodColl.Replace(name, returned_var);
+            else LineWithMethodColl = LineWithMethodColl.Replace(name + ";\r\n", "");
 
             string sp = ""; while (spaces != 0) { sp += " "; spaces--; };
             ReturnedCode = ReturnedCode.Replace("\n", "\n" + sp);
