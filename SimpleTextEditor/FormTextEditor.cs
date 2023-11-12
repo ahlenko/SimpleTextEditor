@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SimpleTextEditor {
     public partial class TextEditorView : Form {
@@ -19,7 +20,6 @@ namespace SimpleTextEditor {
             "Текстові файли (*.txt)|*.txt|" +
             "Файли на мові С++ (*.cpp)|*.cpp";
 
-        private SearchForm searchForm;
         private int oldSearchPosition = 0;
 
         private int startSelected = 0;
@@ -36,7 +36,6 @@ namespace SimpleTextEditor {
             MenuSaveAS.Enabled = true;
             MenuClose.Enabled = true;
             MenuRefactor.Enabled = true;
-            MenuSearch.Enabled = true;
             MenuView.Enabled = true;
             StatusRow.Visible = true;
             StatusChar.Visible = true;
@@ -52,7 +51,6 @@ namespace SimpleTextEditor {
             MenuSaveAS.Enabled = false;
             MenuClose.Enabled = false;
             MenuRefactor.Enabled = false;
-            MenuSearch.Enabled = false;
             MenuView.Enabled = false;
             StatusRow.Visible = false;
             StatusChar.Visible = false;
@@ -148,6 +146,9 @@ namespace SimpleTextEditor {
         private void UpdateVScrollBarMaximum() =>
             ScrollEditor.Maximum = TextEditorWindow.GetLineFromCharIndex(TextEditorWindow.TextLength) + 1;
 
+        private void UpdateRVScrollBarMaximum() =>
+            RightScrollEditor.Maximum = RightTextBox.GetLineFromCharIndex(RightTextBox.TextLength) + 1;
+
 
         // Призначення деяких обробників інтерфейсу користувача
         private void OpenFileButton_Click(object sender, EventArgs e) => OpenMethod(false);
@@ -226,6 +227,27 @@ namespace SimpleTextEditor {
             return Regex.IsMatch(selectedText, pattern);
         }
 
+        private void CompareText() {
+            string text1 = TextEditorWindow.Text;
+            string text2 = RightTextBox.Text;
+            int minLength = Math.Min(text1.Length, text2.Length);
+            int diffIndex = -1;
+
+            for (int i = 0; i < minLength; i++)
+            {
+                if (text1[i] != text2[i])
+                {
+                    diffIndex = i;
+                    break;
+                }
+            }
+
+            RightTextBox.SelectionStart = diffIndex;
+            RightTextBox.SelectionLength = Math.Max(text2.Length - diffIndex, 0);
+
+            RightTextBox.SelectionBackColor = System.Drawing.Color.Yellow;
+        }
+
         // Виклик функції перейменування методу
         private void MenuRenameMethod_Click(object sender, EventArgs e) {
             using (var customDialog = new RenameForm()) {
@@ -234,9 +256,10 @@ namespace SimpleTextEditor {
                     string oldText = customDialog.TextOld.Text;
                     string newText = customDialog.TextNew.Text;
                     bool comments = customDialog.AddOptionActive.Checked;
-                    TextEditorWindow.Text = refactor.RenameMethod(
+                    RightTextBox.Text = refactor.RenameMethod(
                         TextEditorWindow.Text,
                         oldText, newText, comments);
+                    UpdateRVScrollBarMaximum(); button1.Enabled = true; CompareText();
                     MessageBox.Show("Метод " + oldText + " перейменовано на - " + newText, "Повідомлення");
                 }
             }
@@ -265,73 +288,12 @@ namespace SimpleTextEditor {
                 } if (customDialog.ShowDialog() == DialogResult.OK) {
                     string oldText = customDialog.TextOld.Text;
                     string newText = customDialog.TextNew.Text;
-                    TextEditorWindow.Text = refactor.InlineMethod(
+                    RightTextBox.Text = refactor.InlineMethod(
                         TextEditorWindow.Text, TextEditorWindow.SelectionStart,
                         TextEditorWindow.SelectedText, newText);
+                    UpdateRVScrollBarMaximum(); button1.Enabled = true; CompareText();
                     MessageBox.Show("Метод " + oldText + " вбудовано до коду у місці виклику");
                 }
-            }
-        }
-
-        // Виклик дочірнього вікна пошуку
-        private void MenuSearch_Click(object sender, EventArgs e) {
-            searchForm = new SearchForm();
-            searchForm.NextWord.Enabled = false;
-            searchForm.PrewWord.Enabled = false;
-            searchForm.Show();
-        }
-
-        // Обробники дочірнього вікна
-        public void ClickSearch() {
-            string searchText = searchForm.TextOld.Text;
-            string textBoxText = TextEditorWindow.Text;
-
-            int startIndex = textBoxText.IndexOf(searchText, oldSearchPosition, StringComparison.OrdinalIgnoreCase);
-
-            if (startIndex != -1) { Activate();
-                TextEditorWindow.Select(startIndex, searchText.Length);
-                oldSearchPosition = startIndex + 1;
-                searchForm.NextWord.Enabled = true;
-                searchForm.PrewWord.Enabled = true;
-            } else {
-                MessageBox.Show("Збігів не виявлено", "Повідомлення");
-                TextEditorWindow.SelectionStart = 0;
-                TextEditorWindow.SelectionLength = 0;
-                searchForm.NextWord.Enabled = false;
-                searchForm.PrewWord.Enabled = false;
-            }
-        }
-
-        public void ClickPrevious() {
-            string searchText = searchForm.TextOld.Text;
-            string textBoxText = TextEditorWindow.Text;
-
-            int lastIndex = textBoxText.LastIndexOf(searchText, oldSearchPosition - 1, StringComparison.OrdinalIgnoreCase);
-
-            if (lastIndex != -1) {
-                Activate();
-                TextEditorWindow.Select(lastIndex, searchText.Length);
-                oldSearchPosition = lastIndex;
-            } else {
-                MessageBox.Show("Попереднє входження відсутнє", "Повідомлення");
-                TextEditorWindow.SelectionStart = 0;
-                TextEditorWindow.SelectionLength = 0;
-            }
-        }
-
-        public void ClickNext() {
-            string searchText = searchForm.TextOld.Text;
-            string textBoxText = TextEditorWindow.Text;
-
-            int startIndex = textBoxText.IndexOf(searchText, oldSearchPosition, StringComparison.OrdinalIgnoreCase);
-
-            if (startIndex != -1) { Activate();
-                TextEditorWindow.Select(startIndex, searchText.Length);
-                oldSearchPosition = startIndex + 1;
-            } else {
-                MessageBox.Show("Наступне входження відсутнє", "Повідомлення");
-                TextEditorWindow.SelectionStart = 0;
-                TextEditorWindow.SelectionLength = 0;
             }
         }
 
@@ -364,6 +326,14 @@ namespace SimpleTextEditor {
             TextEditorWindow.ScrollToCaret();
         }
 
+        // Зміна позиції у TextBox за рахунок VSScrollBar
+        private void ScrollEditorRight_Scroll(object sender, ScrollEventArgs e) {
+            int scrollValue = ScrollEditor.Value;
+            int textPosition = RightTextBox.GetFirstCharIndexFromLine(scrollValue);
+            RightTextBox.SelectionStart = textPosition;
+            RightTextBox.ScrollToCaret();
+        }
+
         // Перерахунок кількості рядків VSScrollBar при зміні тексту TextBox
         private void TextEditorWindow_TextChanged(object sender, EventArgs e) {
             UpdateVScrollBarMaximum();
@@ -371,6 +341,14 @@ namespace SimpleTextEditor {
             int currentLinePosition = TextEditorWindow.SelectionStart - TextEditorWindow.GetFirstCharIndexFromLine(currentLineNumber);
             StatusRow.Text = "Рядок: " + currentLineNumber + 1;
             StatusChar.Text = "Символ: " + currentLinePosition + 1;
+        }
+
+        // Кнопка підтвердження рефакторингу (перенесення змін до головного вікна)
+        private void button1_Click(object sender, EventArgs e) {
+            TextEditorWindow.Text = RightTextBox.Text;
+            RightTextBox.Text = "";
+            button1.Enabled = false;
+            SaveMethod();
         }
     }
 }
