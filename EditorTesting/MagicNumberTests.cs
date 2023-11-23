@@ -4,17 +4,19 @@ using System;
 
 namespace EditorTesting
 {
-    internal class MagicNumberTests {
+    [TestClass]
+    public class MagicNumberTests
+    {
         //1
         [TestMethod]
         public void NumberChange()
         {
             Refactor r = new Refactor();
-            String origin = "int a = 10 + 4";
+            string origin = "int a = 10 + 4";
             int magicNum = 4;
-            String constName = "b";
-            String result = r.ChangeNum(origin, constName, magicNum);
-            String expectedResult = "const int b = 4\n" +
+            string constName = "b";
+            string result = r.ChangeNum(origin, constName, magicNum);
+            string expectedResult = "const int b = 4\n" +
                 "int a = 10 + b";
             Assert.AreEqual(expectedResult, result);
         }
@@ -23,11 +25,11 @@ namespace EditorTesting
         public void NumberNotChange()
         {
             Refactor r = new Refactor();
-            String origin = "int a = 10 + 4";
+            string origin = "int a = 10 + 4";
             int magicNum = 5;
-            String constName = "b";
-            String result = r.ChangeNum(origin, constName, magicNum);
-            String expectedResult = "int a = 10 + 4";
+            string constName = "b";
+            string result = r.ChangeNum(origin, constName, magicNum);
+            string expectedResult = "int a = 10 + 4";
             Assert.AreEqual(expectedResult, result);
         }
         //3
@@ -35,12 +37,12 @@ namespace EditorTesting
         public void MultiNumberChange()
         {
             Refactor r = new Refactor();
-            String origin = "int a = 10 + 4\n" +
+            string origin = "int a = 10 + 4\n" +
                 "int c = 10 - 4";
             int magicNum = 4;
-            String constName = "b";
-            String result = r.ChangeNum(origin, constName, magicNum);
-            String expectedResult = "const int b = 4\n" +
+            string constName = "b";
+            string result = r.ChangeNum(origin, constName, magicNum);
+            string expectedResult = "const int b = 4\n" +
                 "int a = 10 + b\n" +
                 "int c = 10 - b";
             Assert.AreEqual(expectedResult, result);
@@ -51,12 +53,12 @@ namespace EditorTesting
         {
             Refactor r = new Refactor();
 
-            String origin = "int a1 = 10 + 2\n" +
+            string origin = "int a1 = 10 + 2\n" +
                 "int a2 = 2 + 3";
             int magicNum = 2;
-            String constName = "b";
-            String result = r.ChangeNum(origin, constName, magicNum);
-            String expectedResult = "const int b = 2\n" +
+            string constName = "b";
+            string result = r.ChangeNum(origin, constName, magicNum);
+            string expectedResult = "const int b = 2\n" +
                 "int a1 = 10 + b\n" +
                 "int a2 = b + 3";
             Assert.AreEqual(expectedResult, result);
@@ -67,14 +69,14 @@ namespace EditorTesting
         {
             Refactor r = new Refactor();
 
-            String origin = "const int b = 5\n" +
+            string origin = "const int b = 5\n" +
                 "int a = b + 4";
             int magicNum = 4;
-            String constName = "b";
+            string constName = "b";
 
-            String result = r.ChangeNum(origin, constName, magicNum);
+            string result = r.ChangeNum(origin, constName, magicNum);
 
-            String expectedResult = "const int b = 5\n" +
+            string expectedResult = "const int b = 5\n" +
                 "int a = b + 4";
 
             Assert.AreEqual(expectedResult, result);
@@ -85,13 +87,13 @@ namespace EditorTesting
         {
             Refactor r = new Refactor();
 
-            String origin = "int a = 5";
+            string origin = "int a = 5";
             int magicNum = 5;
-            String constName = "1b";
+            string constName = "1b";
 
-            String result = r.ChangeNum(origin, constName, magicNum);
+            string result = r.ChangeNum(origin, constName, magicNum);
 
-            String expectedResult = "int a = 5";
+            string expectedResult = "int a = 5";
 
             Assert.AreEqual(expectedResult, result);
         }
@@ -102,13 +104,13 @@ namespace EditorTesting
         {
             Refactor r = new Refactor();
 
-            String origin = "float a = 1.534";
+            string origin = "float a = 1.534";
             int magicNum = 4;
-            String constName = "b";
+            string constName = "b";
 
-            String result = r.ChangeNum(origin, constName, magicNum);
+            string result = r.ChangeNum(origin, constName, magicNum);
 
-            String expectedResult = "float a = 1.534";
+            string expectedResult = "float a = 1.534";
 
             Assert.AreEqual(expectedResult, result);
         }
@@ -118,31 +120,31 @@ namespace EditorTesting
         {
             Refactor r = new Refactor();
 
-            String origin = "// int a = 10 + 4\n" +
+            string origin = "// int a = 10 + 4\n" +
                 "int b = 5";
             int magicNum = 4;
-            String constName = "c";
+            string constName = "c";
 
-            String result = r.ChangeNum(origin, constName, magicNum);
+            string result = r.ChangeNum(origin, constName, magicNum);
 
-            String expectedResult = "// int a = 10 + 4\n" +
+            string expectedResult = "// int a = 10 + 4\n" +
                 "int b = 5";
 
             Assert.AreEqual(expectedResult, result);
         }
         //9
         [TestMethod]
-        public void MagicNumberInStrings()
+        public void MagicNumberInstrings()
         {
             Refactor r = new Refactor();
 
-            String origin = "string s = \"Value is 4\"";
+            string origin = "string s = \"Value is 4\"";
             int magicNum = 4;
-            String constName = "a";
+            string constName = "a";
 
-            String result = r.ChangeNum(origin, constName, magicNum);
+            string result = r.ChangeNum(origin, constName, magicNum);
 
-            String expectedResult = "string s = \"Value is 4\"";
+            string expectedResult = "string s = \"Value is 4\"";
 
             Assert.AreEqual(expectedResult, result);
 
@@ -153,13 +155,13 @@ namespace EditorTesting
         {
             Refactor r = new Refactor();
 
-            String origin = "int a = (2 + 4) * 5";
+            string origin = "int a = (2 + 4) * 5";
             int magicNum = 4;
-            String constName = "x";
+            string constName = "x";
 
-            String result = r.ChangeNum(origin, constName, magicNum);
+            string result = r.ChangeNum(origin, constName, magicNum);
 
-            String expectedResult = "const int x = 4\n" +
+            string expectedResult = "const int x = 4\n" +
                 "int a = (2 + x) * 5";
             Assert.AreEqual(expectedResult, result);
         }

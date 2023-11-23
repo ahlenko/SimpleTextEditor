@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -227,25 +228,54 @@ namespace SimpleTextEditor {
             return Regex.IsMatch(selectedText, pattern);
         }
 
-        private void CompareText() {
+        private void CompareText()
+        {
             string text1 = TextEditorWindow.Text;
             string text2 = RightTextBox.Text;
-            int minLength = Math.Min(text1.Length, text2.Length);
-            int diffIndex = -1;
 
-            for (int i = 0; i < minLength; i++)
+            RightTextBox.SelectAll();
+            RightTextBox.SelectionBackColor = RightTextBox.BackColor;
+
+            int index1 = 0;
+            int index2 = 0;
+
+            while (index1 < text1.Length && index2 < text2.Length)
             {
-                if (text1[i] != text2[i])
+                if (text1[index1] == text2[index2])
                 {
-                    diffIndex = i;
-                    break;
+                    index1++;
+                    index2++;
+                }
+                else
+                {
+                    int start1 = index1;
+                    int start2 = index2;
+
+                    // Знайти кінець слова в обох рядках
+                    while (index1 < text1.Length && !char.IsPunctuation(text1[index1]) && !char.IsWhiteSpace(text1[index1]))
+                        index1++;
+
+                    while (index2 < text2.Length && !char.IsPunctuation(text2[index2]) && !char.IsWhiteSpace(text2[index2]))
+                        index2++;
+
+                    // Порівняти слова
+                    string word1 = text1.Substring(start1, index1 - start1);
+                    string word2 = text2.Substring(start2, index2 - start2);
+
+                    if (word1 != word2)
+                    {
+                        // Знайти початок слова у другому тексті
+                        int diffIndex = text2.IndexOf(word2, start2);
+
+                        // Підсвітити відмінності
+                        if (diffIndex != -1)
+                        {
+                            RightTextBox.Select(diffIndex, word2.Length);
+                            RightTextBox.SelectionBackColor = System.Drawing.Color.Yellow;
+                        }
+                    }
                 }
             }
-
-            RightTextBox.SelectionStart = diffIndex;
-            RightTextBox.SelectionLength = Math.Max(text2.Length - diffIndex, 0);
-
-            RightTextBox.SelectionBackColor = System.Drawing.Color.Yellow;
         }
 
         // Виклик функції перейменування методу
@@ -291,7 +321,7 @@ namespace SimpleTextEditor {
                     RightTextBox.Text = refactor.InlineMethod(
                         TextEditorWindow.Text, TextEditorWindow.SelectionStart,
                         TextEditorWindow.SelectedText, newText);
-                    UpdateRVScrollBarMaximum(); button1.Enabled = true; CompareText();
+                    UpdateRVScrollBarMaximum(); button1.Enabled = true; 
                     MessageBox.Show("Метод " + oldText + " вбудовано до коду у місці виклику");
                 }
             }

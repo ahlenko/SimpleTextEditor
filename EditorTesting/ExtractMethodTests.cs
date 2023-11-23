@@ -1,18 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleTextEditor;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EditorTesting
 {
-    internal class ExtractMethodTests {
+    [TestClass]
+    public class ExtractMethodTests
+    {
         [TestMethod]
         public void SimpleExtraction()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -35,7 +33,7 @@ namespace EditorTesting
         [TestMethod]
         public void RangeStartNotValid()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -55,7 +53,7 @@ namespace EditorTesting
         [TestMethod]
         public void RangeEndNotValid()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -75,7 +73,7 @@ namespace EditorTesting
         [TestMethod]
         public void FarTypeDefinitionExtraction()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -102,7 +100,7 @@ namespace EditorTesting
         [TestMethod]
         public void TypeBehindVariablesExtraction()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -133,7 +131,7 @@ namespace EditorTesting
         [TestMethod]
         public void ComplexReturnTypeExtraction()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -156,7 +154,7 @@ namespace EditorTesting
         [TestMethod]
         public void SimpleArgumentsExtraction()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -181,7 +179,7 @@ namespace EditorTesting
         [TestMethod]
         public void MultipleArgumentsExtraction()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -210,7 +208,7 @@ namespace EditorTesting
         [TestMethod]
         public void MultilineExtraction()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -239,7 +237,7 @@ namespace EditorTesting
         [TestMethod]
         public void ComplexMultilineExtraction()
         {
-            String src, methodName, result, expectedResult;
+            string src, methodName, result, expectedResult;
             Refactor r = new Refactor();
             methodName = "ExtractedMethod";
             src = "int main() {\r\n" +
@@ -270,3 +268,4 @@ namespace EditorTesting
         }
     }
 }
+

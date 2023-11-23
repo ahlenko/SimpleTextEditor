@@ -1,13 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleTextEditor;
 
-namespace EditorTesting
-{
-
+namespace EditorTesting {
     [TestClass] //|-----------------------------------------------------------------------|
-    public class RenameMethodTest
-    {
-
+    public class RenameMethodTest {
         [TestMethod] //--------------------------------------------------------------------
         public void TestMethod1()
         {

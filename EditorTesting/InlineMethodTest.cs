@@ -4,7 +4,6 @@ using SimpleTextEditor;
 namespace EditorTesting {
     [TestClass] //|-----------------------------------------------------------------------|
     public class InlineMethodTest {
-
         [TestMethod] //--------------------------------------------------------------------
         public void TestMethod1() {
             Refactor refactor = new Refactor();

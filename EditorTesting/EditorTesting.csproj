@@ -49,11 +49,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtractMethodTests.cs" />
     <Compile Include="InlineMethodTest.cs" />
-    <Compile Include="MagicNumberTests.cs" />
     <Compile Include="RenameMethodTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExtractMethodTests.cs" />
+    <Compile Include="MagicNumberTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

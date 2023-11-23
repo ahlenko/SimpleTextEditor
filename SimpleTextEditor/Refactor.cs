@@ -180,7 +180,7 @@ namespace SimpleTextEditor {
             return ReturnedCode;
         }
 
-        public String ExtractMethod(String src, String methodName, int regionStart, int regionEnd)
+        public string ExtractMethod(string src, string methodName, int regionStart, int regionEnd)
         {
             // Check for valid input
             if (string.IsNullOrEmpty(src) || string.IsNullOrEmpty(methodName)

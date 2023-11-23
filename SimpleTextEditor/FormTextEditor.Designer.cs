@@ -57,8 +57,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.TextEditorWindow = new System.Windows.Forms.RichTextBox();
             this.RightTextBox = new System.Windows.Forms.RichTextBox();
+            this.TextEditorWindow = new System.Windows.Forms.TextBox();
             this.StripStatus.SuspendLayout();
             this.StripMenu.SuspendLayout();
             this.InterfaceGroup.SuspendLayout();
@@ -201,14 +201,14 @@
             // MFontSizePlus
             // 
             this.MFontSizePlus.Name = "MFontSizePlus";
-            this.MFontSizePlus.Size = new System.Drawing.Size(224, 26);
+            this.MFontSizePlus.Size = new System.Drawing.Size(215, 26);
             this.MFontSizePlus.Text = "Збільшити шрифт";
             this.MFontSizePlus.Click += new System.EventHandler(this.MFontSizePlus_Click);
             // 
             // MFontSizeMinus
             // 
             this.MFontSizeMinus.Name = "MFontSizeMinus";
-            this.MFontSizeMinus.Size = new System.Drawing.Size(224, 26);
+            this.MFontSizeMinus.Size = new System.Drawing.Size(215, 26);
             this.MFontSizeMinus.Text = "Зменшити шрифт";
             this.MFontSizeMinus.Click += new System.EventHandler(this.MFontSizeMinus_Click);
             // 
@@ -234,11 +234,11 @@
             this.InterfaceGroup.Controls.Add(this.MainLabel);
             this.InterfaceGroup.Controls.Add(this.OpenFileButton);
             this.InterfaceGroup.Controls.Add(this.CreateFileButton);
-            this.InterfaceGroup.Location = new System.Drawing.Point(8, 37);
+            this.InterfaceGroup.Location = new System.Drawing.Point(10, 37);
             this.InterfaceGroup.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.InterfaceGroup.Name = "InterfaceGroup";
             this.InterfaceGroup.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.InterfaceGroup.Size = new System.Drawing.Size(1106, 562);
+            this.InterfaceGroup.Size = new System.Drawing.Size(1102, 562);
             this.InterfaceGroup.TabIndex = 4;
             this.InterfaceGroup.TabStop = false;
             // 
@@ -331,22 +331,24 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // TextEditorWindow
-            // 
-            this.TextEditorWindow.Location = new System.Drawing.Point(9, 60);
-            this.TextEditorWindow.Name = "TextEditorWindow";
-            this.TextEditorWindow.Size = new System.Drawing.Size(519, 534);
-            this.TextEditorWindow.TabIndex = 4;
-            this.TextEditorWindow.Text = "";
-            this.TextEditorWindow.TextChanged += new System.EventHandler(this.TextEditorWindow_TextChanged);
-            // 
             // RightTextBox
             // 
+            this.RightTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RightTextBox.Location = new System.Drawing.Point(557, 60);
             this.RightTextBox.Name = "RightTextBox";
             this.RightTextBox.Size = new System.Drawing.Size(531, 536);
             this.RightTextBox.TabIndex = 5;
             this.RightTextBox.Text = "";
+            // 
+            // TextEditorWindow
+            // 
+            this.TextEditorWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TextEditorWindow.Location = new System.Drawing.Point(15, 60);
+            this.TextEditorWindow.Multiline = true;
+            this.TextEditorWindow.Name = "TextEditorWindow";
+            this.TextEditorWindow.Size = new System.Drawing.Size(513, 536);
+            this.TextEditorWindow.TabIndex = 9;
+            this.TextEditorWindow.TextChanged += new System.EventHandler(this.TextEditorWindow_TextChanged);
             // 
             // TextEditorView
             // 
@@ -354,7 +356,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1121, 626);
             this.Controls.Add(this.InterfaceGroup);
-            this.Controls.Add(this.TextEditorWindow);
             this.Controls.Add(this.RightTextBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
@@ -363,6 +364,7 @@
             this.Controls.Add(this.ScrollEditor);
             this.Controls.Add(this.StripStatus);
             this.Controls.Add(this.StripMenu);
+            this.Controls.Add(this.TextEditorWindow);
             this.MainMenuStrip = this.StripMenu;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
@@ -413,8 +415,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox TextEditorWindow;
         private System.Windows.Forms.RichTextBox RightTextBox;
+        private System.Windows.Forms.TextBox TextEditorWindow;
     }
 }
 
