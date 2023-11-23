@@ -228,56 +228,6 @@ namespace SimpleTextEditor {
             return Regex.IsMatch(selectedText, pattern);
         }
 
-        private void CompareText()
-        {
-            string text1 = TextEditorWindow.Text;
-            string text2 = RightTextBox.Text;
-
-            RightTextBox.SelectAll();
-            RightTextBox.SelectionBackColor = RightTextBox.BackColor;
-
-            int index1 = 0;
-            int index2 = 0;
-
-            while (index1 < text1.Length && index2 < text2.Length)
-            {
-                if (text1[index1] == text2[index2])
-                {
-                    index1++;
-                    index2++;
-                }
-                else
-                {
-                    int start1 = index1;
-                    int start2 = index2;
-
-                    // Знайти кінець слова в обох рядках
-                    while (index1 < text1.Length && !char.IsPunctuation(text1[index1]) && !char.IsWhiteSpace(text1[index1]))
-                        index1++;
-
-                    while (index2 < text2.Length && !char.IsPunctuation(text2[index2]) && !char.IsWhiteSpace(text2[index2]))
-                        index2++;
-
-                    // Порівняти слова
-                    string word1 = text1.Substring(start1, index1 - start1);
-                    string word2 = text2.Substring(start2, index2 - start2);
-
-                    if (word1 != word2)
-                    {
-                        // Знайти початок слова у другому тексті
-                        int diffIndex = text2.IndexOf(word2, start2);
-
-                        // Підсвітити відмінності
-                        if (diffIndex != -1)
-                        {
-                            RightTextBox.Select(diffIndex, word2.Length);
-                            RightTextBox.SelectionBackColor = System.Drawing.Color.Yellow;
-                        }
-                    }
-                }
-            }
-        }
-
         // Виклик функції перейменування методу
         private void MenuRenameMethod_Click(object sender, EventArgs e) {
             using (var customDialog = new RenameForm()) {
@@ -289,7 +239,7 @@ namespace SimpleTextEditor {
                     RightTextBox.Text = refactor.RenameMethod(
                         TextEditorWindow.Text,
                         oldText, newText, comments);
-                    UpdateRVScrollBarMaximum(); button1.Enabled = true; CompareText();
+                    UpdateRVScrollBarMaximum(); button1.Enabled = true;
                     MessageBox.Show("Метод " + oldText + " перейменовано на - " + newText, "Повідомлення");
                 }
             }
