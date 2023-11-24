@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtractingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExtractingForm.Designer.cs">
+      <DependentUpon>ExtractingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormTextEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,12 @@
     <Compile Include="InlineForm.Designer.cs">
       <DependentUpon>InlineForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MagicForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MagicForm.Designer.cs">
+      <DependentUpon>MagicForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Refactor.cs" />
@@ -67,11 +79,17 @@
     <Compile Include="RenameForm.Designer.cs">
       <DependentUpon>RenameForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ExtractingForm.resx">
+      <DependentUpon>ExtractingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormTextEditor.resx">
       <DependentUpon>FormTextEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InlineForm.resx">
       <DependentUpon>InlineForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MagicForm.resx">
+      <DependentUpon>MagicForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

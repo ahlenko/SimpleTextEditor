@@ -180,45 +180,31 @@ namespace SimpleTextEditor {
             return ReturnedCode;
         }
 
-        public string ExtractMethod(string src, string methodName, int regionStart, int regionEnd)
-        {
+        public string ExtractMethod(string src, string methodName, int regionStart, int regionEnd) {
             // Check for valid input
             if (string.IsNullOrEmpty(src) || string.IsNullOrEmpty(methodName)
                 || regionStart >= src.Length || regionEnd < regionStart)
-
-            {
                 return src;
-            }
 
             string extractedCode = src.Substring(regionStart, regionEnd - regionStart);
 
-            if (extractedCode.Last().CompareTo(';') != 0)
-            {
-                return src;
-            }
-
+            if (extractedCode.Last().CompareTo(';') != 0) return src;
+           
             List<Tuple<string, string, string, int>> variables =
                 FindVariables(src, regionStart, regionEnd);
-            if (variables.Count == 0)
-            {
-                return src;
-            }
-
-
+            if (variables.Count == 0) return src;
+            
             string[] extractedLines = extractedCode.Split('\n');
             string lastLine = extractedLines[extractedLines.Length - 1];
             Array.Resize(ref extractedLines, extractedLines.Length - 1);
             string modifiedExtracted = string.Join("\n", extractedLines);
-            if (modifiedExtracted.Length > 0)
-            {
-                modifiedExtracted += "\n";
-            }
+            if (modifiedExtracted.Length > 0) modifiedExtracted += "\n";
+            
 
             Tuple<string, string, string, int> returnVariable = Tuple.Create("", "", "", 0);
 
             // TODO: check if this variable really need to be returned
-            if (variables.Any())
-            {
+            if (variables.Any()) {
                 returnVariable = variables.Last();
                 variables.RemoveAt(variables.Count - 1);
             }
@@ -231,20 +217,15 @@ namespace SimpleTextEditor {
 
             string methodArguments = "";
             string methodArgumentsDef = "";
-            foreach (Tuple<string, string, string, int> var in variables)
-            {
-                if (var.Item4 < regionStart)
-                {
+            foreach (Tuple<string, string, string, int> var in variables) {
+                if (var.Item4 < regionStart) {
                     methodArguments += methodArguments.Length == 0 ? $"{var.Item1}" : $", {var.Item1}";
 
                     Match match = Regex.Match(extractedCode, $"{var.Item1}\\s*=");
-                    if (match.Success)
-                    {
+                    if (match.Success) {
                         methodArgumentsDef +=
                             methodArgumentsDef.Length == 0 ? $"{var.Item2} &{var.Item1}" : $", {var.Item2} &{var.Item1}";
-                    }
-                    else
-                    {
+                    } else {
                         methodArgumentsDef +=
                             methodArgumentsDef.Length == 0 ? $"{var.Item2} {var.Item1}" : $", {var.Item2} {var.Item1}";
                     }
@@ -267,8 +248,7 @@ namespace SimpleTextEditor {
         }
 
         private List<Tuple<string, string, string, int>>
-            FindVariables(string src, int regionStart, int regionEnd)
-        {
+            FindVariables(string src, int regionStart, int regionEnd) {
             List<Tuple<string, string, string, int>> variables =
                 new List<Tuple<string, string, string, int>>();
 
@@ -280,20 +260,16 @@ namespace SimpleTextEditor {
             string patternNamesInRegion = @"(?<name>[_a-zA-Z][_a-zA-Z0-9]*)";
             MatchCollection matchNamesInRegion = Regex.Matches(region, patternNamesInRegion);
 
-            foreach (Match nameInRegion in matchNamesInRegion)
-            {
-                foreach (Match var in matchesVariables)
-                {
+            foreach (Match nameInRegion in matchNamesInRegion) {
+                foreach (Match var in matchesVariables) {
                     string names = var.Groups["variables"].Value;
                     string type = var.Groups["type"].Value;
                     string[] namesSplit = names.Split(',').Select(p => p.Trim()).ToArray();
-                    foreach (string name in namesSplit)
-                    {
+                    foreach (string name in namesSplit) {
                         if (name != nameInRegion.Groups["name"].Value) continue;
 
                         var result = variables.FirstOrDefault(t => t.Item1 == name);
-                        if (result == null)
-                        {
+                        if (result == null) {
                             variables.Add(Tuple.Create(name, type, "", var.Index));
                         }
                     }
@@ -302,40 +278,30 @@ namespace SimpleTextEditor {
 
             string pattern = @"\b(?<name>\w+)\s*=\s*(?<value>.+?);";
             MatchCollection matchesValues = Regex.Matches(region, pattern);
-            foreach (Match match in matchesValues)
-            {
+            foreach (Match match in matchesValues) {
                 string name = match.Groups["name"].Value;
                 string value = match.Groups["value"].Value;
                 var result = variables.FirstOrDefault(t => t.Item1 == name);
-                if (result != null)
-                {
+                if (result != null) {
                     variables.Remove(result);
                     variables.Add(Tuple.Create(result.Item1, result.Item2, value, result.Item4));
                 }
-            }
-
-
-            return variables;
+            } return variables;
         }
 
 
-        public string ChangeNum(string origin, string constName, int magicNum)
-        {
+        public string ChangeNum(string origin, string constName, int magicNum) {
             string pattern = @"(?<![0-9'])\b" + magicNum + @"\b(?!')"; // Паттерн для пошуку магічних чисел
             Regex regex = new Regex(pattern);
             // Перевірка, чи константа constName коректна
-            if (!IsValidConstantName(constName))
-            {
-                return origin;
-            }
+            if (!IsValidConstantName(constName)) return origin;
+            
             // Перевірка, чи константа constName не міститься в рядках як змінна
             string[] lines = origin.Split('\n');
 
 
-            foreach (string line in lines)
-            {
-                if (line.Contains(constName + " "))
-                {
+            foreach (string line in lines) {
+                if (line.Contains(constName + " ")) {
                     return origin; // Повертаємо вихідний рядок, оскільки constName вже використовується як змінна
                 }
             }
@@ -343,24 +309,19 @@ namespace SimpleTextEditor {
             string[] parts = origin.Split('\n');
 
             bool constAdded = false; // Флаг, який вказує, чи об'явлення константи вже було додано
-            for (int i = 0; i < parts.Length; i++)
-            {
+            for (int i = 0; i < parts.Length; i++) {
                 MatchCollection matches = regex.Matches(parts[i]);
-
-                if (matches.Count > 0)
-                {
-                    foreach (Match match in matches)
-                    {
+                
+                if (matches.Count > 0) {
+                    foreach (Match match in matches) {
                         if (!IsPartOfVariable(parts[i], match.Index) &&
                             !IsPartOfOtherNumber(parts[i], match.Index, match.Length) &&
                             !IsInsideComments(parts[i], magicNum) &&
-                            !IsInsideQuotes(parts[i], magicNum))
-                        {
+                            !IsInsideQuotes(parts[i], magicNum)) {
                             // Замінюємо магічне число на constName
                             parts[i] = regex.Replace(parts[i], constName);
                             // Додаємо об'явлення константи як перший елемент масиву parts
-                            if (!constAdded)
-                            {
+                            if (!constAdded) {
                                 Array.Resize(ref parts, parts.Length + 1);
                                 Array.Copy(parts, 0, parts, 1, parts.Length - 1);
                                 parts[0] = $"const int {constName} = {magicNum}";
@@ -373,21 +334,16 @@ namespace SimpleTextEditor {
             return string.Join("\n", parts);
         }
 
-        private bool IsPartOfVariable(string line, int index)
-        {
+        private bool IsPartOfVariable(string line, int index) {
             // Перевіряє, чи число є частиною змінної
             // Тут ви можете визначити власні правила для того, що вважати змінною
             // Наприклад, якщо ви знаєте, що змінні завжди починаються з літери, то ви можете використовувати регулярний вираз для перевірки
             // У цьому прикладі просто перевіряємо, чи перед числом є пробіл або початок рядка
-            if (index > 0 && !char.IsWhiteSpace(line[index - 1]))
-            {
-                return true;
-            }
+            if (index > 0 && !char.IsWhiteSpace(line[index - 1])) return true;
             return false;
         }
 
-        private bool IsPartOfOtherNumber(string line, int index, int length)
-        {
+        private bool IsPartOfOtherNumber(string line, int index, int length) {
             // Перевіряє, чи число є частиною іншого числа
             // В даному випадку, ми шукаємо будь-які цифри перед і після збігу
             string numberPattern = @"\d+";
@@ -396,59 +352,43 @@ namespace SimpleTextEditor {
             // Знаходимо числа перед і після збігу
             MatchCollection matches = Regex.Matches(lineSubstring, numberPattern);
 
-            foreach (Match match in matches)
-            {
-                if (match.Index != 0 && match.Index + match.Length != lineSubstring.Length)
-                {
+            foreach (Match match in matches) {
+                if (match.Index != 0 && match.Index + match.Length != lineSubstring.Length) {
                     return true;
                 }
-            }
-
-            return false;
+            } return false;
         }
 
-        private bool IsInsideQuotes(string line, int magicNum)
-        {
+        private bool IsInsideQuotes(string line, int magicNum) {
             // Перевіряє, чи число знаходиться між лапками в строці
             string pattern = @"([""'])(?:(?=(\\?))\2.)*?\1";
             MatchCollection matches = Regex.Matches(line, pattern);
 
-            foreach (Match match in matches)
-            {
-                if (match.Index < line.IndexOf(magicNum.ToString()) && line.IndexOf(magicNum.ToString()) < match.Index + match.Length)
-                {
+            foreach (Match match in matches) {
+                if (match.Index < line.IndexOf(magicNum.ToString()) && line.IndexOf(magicNum.ToString()) < match.Index + match.Length) {
                     return true;
                 }
-            }
-
-            return false;
+            } return false;
         }
 
-        private bool IsInsideComments(string line, int magicNum)
-        {
+        private bool IsInsideComments(string line, int magicNum) {
             // Перевіряє, чи число знаходиться після початку коментаря в строці
             int commentStartIndex = line.IndexOf("//");
             int commentStartIndex2 = line.IndexOf("/*");
 
             if ((commentStartIndex >= 0 && line.IndexOf(magicNum.ToString()) > commentStartIndex) ||
                 (commentStartIndex2 >= 0 && line.IndexOf(magicNum.ToString()) > commentStartIndex2))
-            {
                 return true;
-            }
-
+           
             return false;
         }
 
-        public bool IsValidConstantName(string name)
-        {
+        public bool IsValidConstantName(string name) {
             if (!char.IsLetter(name[0])) return false;
 
-            foreach (var ch in name)
-            {
+            foreach (var ch in name) {
                 if (!char.IsLetterOrDigit(ch) && ch != '_') return false;
-            }
-
-            return true;
+            } return true;
         }
     }
 }

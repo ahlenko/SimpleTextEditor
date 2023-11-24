@@ -21,10 +21,6 @@ namespace SimpleTextEditor {
             "Текстові файли (*.txt)|*.txt|" +
             "Файли на мові С++ (*.cpp)|*.cpp";
 
-        private int oldSearchPosition = 0;
-
-        private int startSelected = 0;
-        private int lenghtSelected = 0;
         private string origSelectedText = "";
 
         // Інтерфейс: файл відкрито
@@ -162,19 +158,19 @@ namespace SimpleTextEditor {
         private void MenuRefactor_Click(object sender, EventArgs e) {
             string selectedText = TextEditorWindow.SelectedText;
 
-            origSelectedText = selectedText; // Старий виділений текст (ім'я методу)
-            startSelected = TextEditorWindow.SelectionStart; // Початок імені методу
-            lenghtSelected = TextEditorWindow.SelectionLength; // Довжина імені методу
-
-            // Далі те саме але для повного коду виклику методу
+            origSelectedText = selectedText;
 
             MenuInlineMethod.Enabled = false;
             MenuRenameMethod.Enabled = false;
-
-            int selectionEnd = TextEditorWindow.SelectionStart + TextEditorWindow.SelectionLength;
+            MenuExtractMethod.Enabled = false;
+            MenuMagicNumber.Enabled = false;
 
             if (!string.IsNullOrWhiteSpace(selectedText)) {
-                if (isOnlyName(selectedText)) {
+                if (isNumber(selectedText)) {
+                    MenuMagicNumber.Enabled = true;
+                } else if (isStartEndRow(selectedText)){
+                    MenuExtractMethod.Enabled = true;
+                } else if (isOnlyName(selectedText)) {
                     if (isMethodCall(selectedText)) {
                         MenuInlineMethod.Enabled = true;
                         MenuRenameMethod.Enabled = true;
@@ -183,6 +179,27 @@ namespace SimpleTextEditor {
                     }
                 }              
             } 
+        }
+
+        // Це рядок число?
+        private bool isNumber(string selectedText) {
+            return int.TryParse(selectedText, out int intValue);
+        }
+
+        // Це рядок що має логічний кінець (;) та початок (; ...)?
+        private bool isStartEndRow(string selectedText) { int tr = 0;
+            if (selectedText[selectedText.Length - 1] == ';' 
+                && selectedText[0] != ' ') tr++;
+            string fulltext = TextEditorWindow.Text;
+            int selector = TextEditorWindow.SelectionStart - 1;
+            while (fulltext[selector] != ';') {
+                if (fulltext[selector] != ' ' &&
+                    fulltext[selector] != '\n' &&
+                    fulltext[selector] != '\r' &&
+                    fulltext[selector] != '\t')
+                        return false;
+                selector--;
+            } return tr == 1;
         }
 
         // Це оголошення методу ?
@@ -228,6 +245,23 @@ namespace SimpleTextEditor {
             return Regex.IsMatch(selectedText, pattern);
         }
 
+        // Метод порівняння вхідного та вихідного тексту
+        private void CompareText() {
+            string text1 = TextEditorWindow.Text.Replace("\r", "");
+            string text2 = RightTextBox.Text; RightTextBox.SelectAll();
+            RightTextBox.SelectionBackColor = System.Drawing.Color.Yellow;
+            using (StringReader reader = new StringReader(text1)) {
+                string line; int currentIndex = 0;
+                while ((line = reader.ReadLine()) != null) {
+                    int indexInText2 = text2.IndexOf(line, currentIndex);
+                    if (indexInText2 != -1) {
+                        RightTextBox.Select(indexInText2, line.Length);
+                        RightTextBox.SelectionBackColor = RightTextBox.BackColor;
+                    } currentIndex = indexInText2 + line.Length;
+                }
+            }
+        }
+
         // Виклик функції перейменування методу
         private void MenuRenameMethod_Click(object sender, EventArgs e) {
             using (var customDialog = new RenameForm()) {
@@ -239,7 +273,7 @@ namespace SimpleTextEditor {
                     RightTextBox.Text = refactor.RenameMethod(
                         TextEditorWindow.Text,
                         oldText, newText, comments);
-                    UpdateRVScrollBarMaximum(); button1.Enabled = true;
+                    UpdateRVScrollBarMaximum(); button1.Enabled = true; button1.Visible = true; CompareText();
                     MessageBox.Show("Метод " + oldText + " перейменовано на - " + newText, "Повідомлення");
                 }
             }
@@ -271,13 +305,43 @@ namespace SimpleTextEditor {
                     RightTextBox.Text = refactor.InlineMethod(
                         TextEditorWindow.Text, TextEditorWindow.SelectionStart,
                         TextEditorWindow.SelectedText, newText);
-                    UpdateRVScrollBarMaximum(); button1.Enabled = true; 
+                    UpdateRVScrollBarMaximum(); button1.Enabled = true; button1.Visible = true; CompareText();
                     MessageBox.Show("Метод " + oldText + " вбудовано до коду у місці виклику");
                 }
             }
         }
 
-        // Обробники масштабування
+        // Виклик функції виділення методу
+        private void MenuExtractMethod_Click(object sender, EventArgs e) {
+            using (var customDialog = new ExtractingForm()) {
+                if (customDialog.ShowDialog() == DialogResult.OK) {
+                    string name = customDialog.MethodName.Text;
+                    int sel_start = TextEditorWindow.SelectionStart;
+                    int sel_end = TextEditorWindow.SelectionStart + origSelectedText.Length;
+                    RightTextBox.Text = refactor.ExtractMethod(
+                        TextEditorWindow.Text, name, sel_start, sel_end);
+                    UpdateRVScrollBarMaximum(); button1.Enabled = true; button1.Visible = true; CompareText();
+                    MessageBox.Show("Метод " + name + " виділено з вхідного коду");
+                }
+            }
+        }
+
+        // Виклик функції заміни магічним числом
+        private void MenuMagicNumber_Click(object sender, EventArgs e) {
+            using (var customDialog = new MagicForm()) {
+                customDialog.NumValue.Text = origSelectedText;
+                if (customDialog.ShowDialog() == DialogResult.OK) {
+                    string name = customDialog.ConstName.Text;
+                    string value = customDialog.NumValue.Text;
+                    RightTextBox.Text = refactor.ChangeNum(
+                        TextEditorWindow.Text, name, int.Parse(value));
+                    UpdateRVScrollBarMaximum(); button1.Enabled = true; button1.Visible = true; CompareText();
+                    MessageBox.Show("Виконано заміну числа " + value + " магічним числом " + name);
+                }
+            }
+        }
+
+        // Обробники масштабування +
         private void MFontSizePlus_Click(object sender, EventArgs e) {
             if (TextEditorWindow.Font.Size < 20) { MFontSizeMinus.Enabled = true;
                 TextEditorWindow.Font = new Font(
@@ -288,6 +352,7 @@ namespace SimpleTextEditor {
             else MFontSizePlus.Enabled = false;
         }
 
+        // Обробники масштабування -
         private void MFontSizeMinus_Click(object sender, EventArgs e) {
             if (TextEditorWindow.Font.Size > 5) { MFontSizePlus.Enabled = true;
                 TextEditorWindow.Font = new Font(
@@ -325,9 +390,10 @@ namespace SimpleTextEditor {
 
         // Кнопка підтвердження рефакторингу (перенесення змін до головного вікна)
         private void button1_Click(object sender, EventArgs e) {
-            TextEditorWindow.Text = RightTextBox.Text;
+            TextEditorWindow.Text = RightTextBox.Text.Replace("\n", "\r\n");
             RightTextBox.Text = "";
             button1.Enabled = false;
+            button1.Visible = false;
             SaveMethod();
         }
     }
